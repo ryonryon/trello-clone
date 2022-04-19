@@ -63,6 +63,6 @@ const IconWrapper = styled.span`
   margin-right: 2px;
 
   & > svg {
-    font-size: 20px;
+    font-size: 18px;
   }
 `;
