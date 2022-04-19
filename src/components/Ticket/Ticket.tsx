@@ -1,8 +1,8 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { Edit } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
-import { Card } from "../Card";
+import Card from "../Card";
 
 export interface Props {
   title: string;
@@ -18,6 +18,8 @@ export default function Ticket({
   onClick,
   ...props
 }: Props) {
+  const [iconVisible, setIconVisible] = useState(false);
+
   return (
     <_Card onClick={onClick} {...props}>
       <Content>
@@ -34,11 +36,11 @@ export default function Ticket({
 const _Card = styled(Card)`
   min-height: 30px;
   background-color: #ffffff;
-  padding: 6px 8px 2px;
+  padding: 6px 4px 2px 8px;
   cursor: pointer;
 
   &:hover {
-    background-color: #cacccb;
+    background-color: #ebecf0;
   }
 `;
 

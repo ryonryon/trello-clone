@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MoreHoriz } from "@material-ui/icons";
 import IconButton from "./IconButton";
 
 export default {
@@ -8,7 +9,9 @@ export default {
 
 export const Basic = () => (
   <BackGround>
-    <IconButton style={{ width: "200px" }} />
+    <IconButton>
+      <MoreHoriz />
+    </IconButton>
   </BackGround>
 );
 

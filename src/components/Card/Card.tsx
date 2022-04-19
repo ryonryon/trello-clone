@@ -14,6 +14,6 @@ export default function Card({ children, ...props }: Props) {
 
 const Root = styled.div`
   display: inline-block;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0 1px 0 #091e4240;
 `;

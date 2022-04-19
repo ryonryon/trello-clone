@@ -16,7 +16,7 @@ const Root = styled.div`
   display: block;
   width: 20px;
   height: 20px;
-  padding: 2px;
+  padding: 4px;
   border-radius: 2px;
   cursor: pointer;
 
@@ -26,5 +26,6 @@ const Root = styled.div`
 
   & > svg {
     font-size: 20px;
+    color: #6b778c;
   }
 `;
