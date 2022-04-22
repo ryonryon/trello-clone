@@ -49,14 +49,10 @@ const _Card = styled(Card)`
   background-color: #ebecf0;
   min-width: 320px;
   padding: 4px;
+  cursor: pointer;
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: 100%;
 `;
@@ -81,7 +77,7 @@ const Tickets = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   width: 100%;
   margin-bottom: 4px;
 

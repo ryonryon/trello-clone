@@ -18,8 +18,6 @@ export default function Ticket({
   onClick,
   ...props
 }: Props) {
-  const [iconVisible, setIconVisible] = useState(false);
-
   return (
     <_Card onClick={onClick} {...props}>
       <Content>
@@ -50,4 +48,13 @@ const Content = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  & > div:last-child {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  &:hover > div:last-child {
+    opacity: 0.8;
+  }
 `;
