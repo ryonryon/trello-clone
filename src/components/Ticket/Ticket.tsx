@@ -1,10 +1,29 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useContext } from "react";
+import {
+  Draggable,
+  DraggingStyle,
+  NotDraggingStyle,
+} from "react-beautiful-dnd";
 import { Edit } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
 import Card from "../Card";
+import { TicketDraggableContext } from "../Panel";
+
+function getItemStyle(
+  isDragging: boolean,
+  draggableStyle?: DraggingStyle | NotDraggingStyle | undefined
+): CSSProperties {
+  return {
+    userSelect: "none",
+    background: isDragging ? "lightgreen" : "grey",
+    ...draggableStyle,
+  };
+}
 
 export interface Props {
+  id: string;
+  index?: number;
   title: string;
   onClick?: () => void;
   onEditClick?: () => void;
@@ -13,12 +32,40 @@ export interface Props {
 }
 
 export default function Ticket({
+  id,
+  index = 0,
   title,
   onEditClick,
   onClick,
   ...props
 }: Props) {
-  return (
+  const { draggable } = useContext(TicketDraggableContext);
+
+  return draggable ? (
+    <Draggable key={`${id}`} draggableId={`${id}`} index={index}>
+      {(provided, snapshot) => (
+        <CardDraggableWrapper
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          style={getItemStyle(
+            snapshot.isDragging,
+            provided.draggableProps.style
+          )}
+        >
+          <_Card onClick={onClick} {...props}>
+            <Content>
+              {title}
+
+              <IconButton onClick={onEditClick}>
+                <Edit />
+              </IconButton>
+            </Content>
+          </_Card>
+        </CardDraggableWrapper>
+      )}
+    </Draggable>
+  ) : (
     <_Card onClick={onClick} {...props}>
       <Content>
         {title}
@@ -31,8 +78,11 @@ export default function Ticket({
   );
 }
 
+const CardDraggableWrapper = styled.div``;
+
 const _Card = styled(Card)`
-  min-height: 30px;
+  width: 100%;
+  height: 100%;
   background-color: #ffffff;
   padding: 6px 4px 2px 8px;
   cursor: pointer;

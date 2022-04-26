@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { idText } from "typescript";
 import Ticket from "../Ticket";
 import Panel from "./Panel";
 
@@ -19,11 +20,30 @@ export const Basic = () => (
 
 export const WithTickets = () => (
   <BackGround>
-    <Panel title="test panel with tickets">
-      <Ticket title="test ticket 1" />
-      <Ticket title="test ticket 2" />
-      <Ticket title="test ticket 3" />
-    </Panel>
+    <Panel
+      title="test panel with tickets"
+      items={[
+        { id: "id1", title: "test ticket 1" },
+        { id: "id2", title: "test ticket 2" },
+        { id: "id3", title: "test ticket 3" },
+        { id: "id4", title: "test ticket 4" },
+      ]}
+    />
+  </BackGround>
+);
+
+export const Draggable = () => (
+  <BackGround>
+    <Panel
+      title="test panel with tickets"
+      items={[
+        { id: "id1", title: "test ticket 1" },
+        { id: "id2", title: "test ticket 2" },
+        { id: "id3", title: "test ticket 3" },
+        { id: "id4", title: "test ticket 4" },
+      ]}
+      draggable
+    />
   </BackGround>
 );
 

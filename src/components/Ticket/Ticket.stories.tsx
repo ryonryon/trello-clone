@@ -12,7 +12,7 @@ export default {
 
 export const Basic = () => (
   <BackGround>
-    <Ticket title="test" style={{ width: "300px" }} />
+    <Ticket id="test1" title="test" style={{ width: "300px" }} />
   </BackGround>
 );
 

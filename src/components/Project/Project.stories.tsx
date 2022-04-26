@@ -10,7 +10,7 @@ export default {
 
 export const Basic = () => (
   <Project title="test">
-    <Panel title="test panel with tickets">
+    {/* <Panel title="test panel with tickets">
       <Ticket title="test ticket 1" />
       <Ticket title="test ticket 2" />
       <Ticket title="test ticket 3" />
@@ -26,6 +26,6 @@ export const Basic = () => (
       <Ticket title="test ticket 3" />
       <Ticket title="test ticket 3" />
       <Ticket title="test ticket 4" />
-    </Panel>
+    </Panel> */}
   </Project>
 );
