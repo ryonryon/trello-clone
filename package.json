@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "story": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "test": "jest"
   },
   "browserslist": {
     "production": [
@@ -35,6 +36,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
@@ -45,6 +49,13 @@
     "@storybook/preset-create-react-app": "^4.1.0",
     "@storybook/react": "^6.4.22",
     "@storybook/testing-library": "^0.0.9",
+    "@testing-library/react": "^13.1.1",
+    "@types/jest": "^27.4.1",
+    "babel-jest": "^27.4.1",
+    "jest": "^27.4.1",
+    "react-select-event": "^5.5.0",
+    "react-test-renderer": "^18.0.0",
+    "ts-jest": "^27.1.4",
     "webpack": "^5.72.0"
   },
   "eslintConfig": {
