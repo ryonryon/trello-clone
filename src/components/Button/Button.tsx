@@ -1,28 +1,28 @@
-import { CSSProperties, ReactChild, ReactElement } from "react";
+import { CSSProperties, ReactElement } from "react";
 import styled, { css } from "styled-components";
 
-export interface Props {
-  title: string;
+/**
+ * A group of properties for `<Root />`. If a value can be used in
+ * anywhere else, set it on `Props` instead.
+ */
+interface RootBodyProps {
   textLeft?: boolean;
-  icon?: ReactElement;
   onClick?: () => void;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Button({
-  title,
-  textLeft,
-  icon,
-  onClick,
-  ...props
-}: Props) {
+export interface Props extends RootBodyProps {
+  title: string;
+  icon?: ReactElement;
+}
+
+export default function Button({ title, icon, ...rootBodyProps }: Props) {
   return (
-    <Root textLeft={textLeft} onClick={onClick} {...props}>
+    <Root {...rootBodyProps}>
       {icon ? (
         <Content>
-          <IconWrapper>{icon}</IconWrapper>
-
+          <IconWrapper data-testid={`buttonIcon_${title}`}>{icon}</IconWrapper>
           {title}
         </Content>
       ) : (
