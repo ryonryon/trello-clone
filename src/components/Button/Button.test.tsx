@@ -23,7 +23,7 @@ describe("<Button />", () => {
     const mockedCallbackFn = jest.fn();
 
     render(<Button title={mockedTitle} onClick={mockedCallbackFn} />);
-    const renderedButton = screen.getByText(mockedTitle);
+    const renderedButton = screen.getByRole("button");
 
     // Act
     fireEvent.click(renderedButton);
