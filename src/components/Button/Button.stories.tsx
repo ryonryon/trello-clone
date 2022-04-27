@@ -7,19 +7,19 @@ export default {
   component: Button,
 };
 
-export const Basic = () => (
+export const Basic = (): JSX.Element => (
   <BackGround>
     <Button title="Submit" />
   </BackGround>
 );
 
-export const WithIcon = () => (
+export const WithIcon = (): JSX.Element => (
   <BackGround>
     <Button title="Submit" icon={<Add />} />
   </BackGround>
 );
 
-export const WithIconAndTextLeft = () => (
+export const WithIconAndTextLeft = (): JSX.Element => (
   <BackGround>
     <Button title="Submit" icon={<Add />} textLeft />
   </BackGround>

@@ -17,7 +17,11 @@ export interface Props extends RootBodyProps {
   icon?: ReactElement;
 }
 
-export default function Button({ title, icon, ...rootBodyProps }: Props) {
+export default function Button({
+  title,
+  icon,
+  ...rootBodyProps
+}: Props): JSX.Element {
   return (
     <Root {...rootBodyProps}>
       {icon ? (

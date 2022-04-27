@@ -40,16 +40,15 @@ export default function Panel({
   title,
   items = [],
   draggable = false,
-  onEditClick,
+  // onEditClick,
   ...props
-}: Props) {
-  const [_item, setItem] =
-    useState<
-      {
-        id: string;
-        title: string;
-      }[]
-    >(items);
+}: Props): JSX.Element {
+  const [_item, setItem] = useState<
+    {
+      id: string;
+      title: string;
+    }[]
+  >(items);
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) {

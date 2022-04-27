@@ -1,14 +1,14 @@
-import styled from "styled-components";
-import Panel from "../Panel";
+// import styled from "styled-components";
+// import Panel from "../Panel";
 import Project from "./Project";
-import Ticket from "../Ticket";
+// import Ticket from "../Ticket";
 
 export default {
   title: "Project",
   component: Project,
 };
 
-export const Basic = () => (
+export const Basic = (): JSX.Element => (
   <Project title="test">
     {/* <Panel title="test panel with tickets">
       <Ticket title="test ticket 1" />

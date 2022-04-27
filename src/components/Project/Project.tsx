@@ -1,4 +1,4 @@
-import { CSSProperties, ReactChild } from "react";
+import { CSSProperties } from "react";
 import { Add, Star } from "@material-ui/icons";
 import styled from "styled-components";
 import Button from "../Button";
@@ -6,12 +6,16 @@ import IconButton from "../IconButton";
 
 export interface Props {
   title: string;
-  children?: ReactChild | ReactChild[];
+  children?: React.ReactNode;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Project({ title, children, ...props }: Props) {
+export default function Project({
+  title,
+  children,
+  ...props
+}: Props): JSX.Element {
   return (
     <Root {...props}>
       <Content>

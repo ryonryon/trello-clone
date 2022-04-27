@@ -7,7 +7,7 @@ export default {
   component: IconButton,
 };
 
-export const Basic = () => (
+export const Basic = (): JSX.Element => (
   <BackGround>
     <IconButton>
       <MoreHoriz />
