@@ -6,7 +6,7 @@ export default {
   component: Card,
 };
 
-export const Basic = () => (
+export const Basic = (): JSX.Element => (
   <BackGround>
     <Card
       style={{

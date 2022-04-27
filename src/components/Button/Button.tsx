@@ -1,4 +1,4 @@
-import { CSSProperties, ReactElement } from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 
 /**
@@ -17,7 +17,15 @@ export interface Props extends RootBodyProps {
   icon?: ReactElement;
 }
 
-export default function Button({ title, icon, ...rootBodyProps }: Props) {
+export default function Button({
+  title,
+  icon,
+  ...rootBodyProps
+}: Props): JSX.Element {
+  if (true) {
+    const [test, setTest] = useState(false);
+  }
+
   return (
     <Root {...rootBodyProps}>
       {icon ? (

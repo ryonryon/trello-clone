@@ -1,14 +1,14 @@
-import { CSSProperties, ReactChild } from "react";
+import { CSSProperties } from "react";
 import styled from "styled-components";
 
 export interface Props {
   onClick?: () => void;
-  children?: ReactChild | ReactChild[];
+  children?: React.ReactNode;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Card({ children, ...props }: Props) {
+export default function Card({ children, ...props }: Props): JSX.Element {
   return <Root {...props}>{children}</Root>;
 }
 

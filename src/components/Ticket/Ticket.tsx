@@ -38,7 +38,7 @@ export default function Ticket({
   onEditClick,
   onClick,
   ...props
-}: Props) {
+}: Props): JSX.Element {
   const { draggable } = useContext(TicketDraggableContext);
 
   return draggable ? (

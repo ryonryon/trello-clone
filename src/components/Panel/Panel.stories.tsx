@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { idText } from "typescript";
-import Ticket from "../Ticket";
 import Panel from "./Panel";
 
 export default {
@@ -12,13 +10,13 @@ export default {
   },
 };
 
-export const Basic = () => (
+export const Basic = (): JSX.Element => (
   <BackGround>
     <Panel title="test panel" />
   </BackGround>
 );
 
-export const WithTickets = () => (
+export const WithTickets = (): JSX.Element => (
   <BackGround>
     <Panel
       title="test panel with tickets"
@@ -32,7 +30,7 @@ export const WithTickets = () => (
   </BackGround>
 );
 
-export const Draggable = () => (
+export const Draggable = (): JSX.Element => (
   <BackGround>
     <Panel
       title="test panel with tickets"
