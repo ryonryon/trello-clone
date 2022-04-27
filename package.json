@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "story": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint \"**/*.{ts,tsx}\""
   },
   "browserslist": {
     "production": [
@@ -51,8 +52,19 @@
     "@storybook/testing-library": "^0.0.9",
     "@testing-library/react": "^13.1.1",
     "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "babel-jest": "^27.4.1",
+    "eslint": "^7.20.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.4.0",
     "jest": "^27.4.1",
+    "prettier": "^2.6.2",
     "react-select-event": "^5.5.0",
     "react-test-renderer": "^18.0.0",
     "ts-jest": "^27.1.4",
