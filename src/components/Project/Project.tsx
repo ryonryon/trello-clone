@@ -11,11 +11,7 @@ export interface Props {
   style?: CSSProperties;
 }
 
-export default function Project({
-  title,
-  children,
-  ...props
-}: Props): JSX.Element {
+export default function Project({ title, children, ...props }: Props): JSX.Element {
   return (
     <Root {...props}>
       <Content>

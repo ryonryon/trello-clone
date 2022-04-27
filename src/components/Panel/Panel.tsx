@@ -82,12 +82,7 @@ export default function Panel({
                     style={getListStyle(snapshot.isDraggingOver)}
                   >
                     {_item.map((item, i) => (
-                      <Ticket
-                        key={`panel:${title}-ticket:${item.id}`}
-                        id={item.id}
-                        title={item.title}
-                        index={i}
-                      />
+                      <Ticket key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.title} index={i} />
                     ))}
                   </Tickets>
                 )}
@@ -97,12 +92,7 @@ export default function Panel({
         ) : (
           <Tickets>
             {_item.map((item, i) => (
-              <Ticket
-                key={`panel:${title}-ticket:${item.id}`}
-                id={item.id}
-                title={item.title}
-                index={i}
-              />
+              <Ticket key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.title} index={i} />
             ))}
           </Tickets>
         )}

@@ -17,11 +17,7 @@ export interface Props extends RootBodyProps {
   icon?: ReactElement;
 }
 
-export default function Button({
-  title,
-  icon,
-  ...rootBodyProps
-}: Props): JSX.Element {
+export default function Button({ title, icon, ...rootBodyProps }: Props): JSX.Element {
   return (
     <Root {...rootBodyProps}>
       {icon ? (
@@ -38,8 +34,7 @@ export default function Button({
 
 const Root = styled.button<{ textLeft?: boolean }>`
   display: inline-block;
-  padding: ${(props) =>
-    props.textLeft ? css`8px 24px 8px 8px` : css`8px 24px`};
+  padding: ${(props) => (props.textLeft ? css`8px 24px 8px 8px` : css`8px 24px`)};
   text-align: center;
   background-color: #ebecf0;
   border: none;
