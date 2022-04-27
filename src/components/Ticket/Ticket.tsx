@@ -1,9 +1,5 @@
 import { CSSProperties, useContext } from "react";
-import {
-  Draggable,
-  DraggingStyle,
-  NotDraggingStyle,
-} from "react-beautiful-dnd";
+import { Draggable, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 import { Edit } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
@@ -12,7 +8,7 @@ import { TicketDraggableContext } from "../Panel";
 
 function getItemStyle(
   isDragging: boolean,
-  draggableStyle?: DraggingStyle | NotDraggingStyle | undefined
+  draggableStyle?: DraggingStyle | NotDraggingStyle | undefined,
 ): CSSProperties {
   return {
     userSelect: "none",
@@ -31,14 +27,7 @@ export interface Props {
   style?: CSSProperties;
 }
 
-export default function Ticket({
-  id,
-  index = 0,
-  title,
-  onEditClick,
-  onClick,
-  ...props
-}: Props): JSX.Element {
+export default function Ticket({ id, index = 0, title, onEditClick, onClick, ...props }: Props): JSX.Element {
   const { draggable } = useContext(TicketDraggableContext);
 
   return draggable ? (
@@ -48,10 +37,7 @@ export default function Ticket({
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
+          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
         >
           <_Card onClick={onClick} {...props}>
             <Content>
