@@ -63,6 +63,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
+    "husky": "^7.0.4",
     "jest": "^27.4.1",
     "prettier": "^2.6.2",
     "react-select-event": "^5.5.0",
@@ -81,5 +82,10 @@
         }
       }
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test && npm run lint"
+    }
   }
 }
