@@ -56,7 +56,7 @@ describe("<EditableLabel />", () => {
       expect(mockedCallbackFn).toBeCalled();
     });
 
-    test(" - OnBlur return initial value when user didn't change the value", () => {
+    test(" - OnBlur returns initial value when user didn't change the value", () => {
       // Arrange
       const mockedValue = "This is mocked value";
       const mockedCallbackFn = jest.fn();
@@ -71,7 +71,7 @@ describe("<EditableLabel />", () => {
       expect(mockedCallbackFn).toBeCalledWith(mockedValue);
     });
 
-    test(" - OnBlur return initial value when user changed the value", () => {
+    test(" - OnBlur returns changed value when user changed the value", () => {
       // Arrange
       const mockedValue = "This is mocked value";
       const changedMockedValue = "changed mocked value";
