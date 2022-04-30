@@ -1,4 +1,6 @@
+import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
+
 import Ticket from "./Ticket";
 
 export default {
@@ -8,13 +10,20 @@ export default {
     onClick: { action: "onClick clicked" },
     onEditClick: { action: "onEditClick clicked" },
   },
+  args: {
+    id: "test1",
+    title: "Test",
+    style: { width: "300px", height: "100px" },
+  },
 };
 
-export const Basic = (): JSX.Element => (
+const Template: ComponentStory<typeof Ticket> = (args) => (
   <BackGround>
-    <Ticket id="test1" title="test" style={{ width: "300px" }} />
+    <Ticket {...args} />
   </BackGround>
 );
+
+export const Basic = Template.bind({});
 
 const BackGround = styled.div`
   width: 100%;

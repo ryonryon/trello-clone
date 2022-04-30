@@ -1,14 +1,15 @@
-import styled from "styled-components";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Add } from "@material-ui/icons";
+import styled from "styled-components";
+
 import Button from "./Button";
 
 export default {
   title: "Button",
   component: Button,
-  argTypes: { onClick: { action: "clicked. Args" } },
+  argTypes: { onClick: { action: "clicked" } },
   args: {
-    title: "Love!",
+    title: "Submit",
   },
 } as ComponentMeta<typeof Button>;
 

@@ -1,4 +1,6 @@
+import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
+
 import Panel from "./Panel";
 
 export default {
@@ -8,42 +10,45 @@ export default {
     onClick: { action: "onClick clicked" },
     onEditClick: { action: "onEditClick clicked" },
   },
+  args: {
+    title: "test panel",
+  },
 };
 
-export const Basic = (): JSX.Element => (
+const Template: ComponentStory<typeof Panel> = (args) => (
   <BackGround>
-    <Panel title="test panel" />
+    <Panel {...args} />
   </BackGround>
 );
 
-export const WithTickets = (): JSX.Element => (
-  <BackGround>
-    <Panel
-      title="test panel with tickets"
-      items={[
-        { id: "id1", title: "test ticket 1" },
-        { id: "id2", title: "test ticket 2" },
-        { id: "id3", title: "test ticket 3" },
-        { id: "id4", title: "test ticket 4" },
-      ]}
-    />
-  </BackGround>
-);
+export const Basic = Template.bind({});
 
-export const Draggable = (): JSX.Element => (
-  <BackGround>
-    <Panel
-      title="test panel with tickets"
-      items={[
-        { id: "id1", title: "test ticket 1" },
-        { id: "id2", title: "test ticket 2" },
-        { id: "id3", title: "test ticket 3" },
-        { id: "id4", title: "test ticket 4" },
-      ]}
-      draggable
-    />
-  </BackGround>
-);
+export const WithTickets = Template.bind({});
+
+WithTickets.args = {
+  ...Basic.args,
+  title: "test panel with tickets",
+  items: [
+    { id: "id1", title: "test ticket 1" },
+    { id: "id2", title: "test ticket 2" },
+    { id: "id3", title: "test ticket 3" },
+    { id: "id4", title: "test ticket 4" },
+  ],
+};
+
+export const Draggable = Template.bind({});
+
+Draggable.args = {
+  ...Basic.args,
+  title: "test panel with tickets",
+  items: [
+    { id: "id1", title: "test ticket 1" },
+    { id: "id2", title: "test ticket 2" },
+    { id: "id3", title: "test ticket 3" },
+    { id: "id4", title: "test ticket 4" },
+  ],
+  draggable: true,
+};
 
 const BackGround = styled.div`
   width: 100%;
