@@ -3,7 +3,7 @@ import { Add } from "@material-ui/icons";
 import Button from "./Button";
 
 describe("<Button />", () => {
-  test("Passed tittle with icon - it should be rendered with given props", () => {
+  test("Passed title with icon - it should be rendered with given props", () => {
     // Arrange
     const mockedTitle = "This is mocked title";
     const mockedIconTestId = `buttonIcon_${mockedTitle}`;
