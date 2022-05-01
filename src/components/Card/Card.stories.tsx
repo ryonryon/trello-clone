@@ -1,22 +1,28 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import styled from "styled-components";
+
 import Card from "./Card";
 
 export default {
   title: "Card",
   component: Card,
-};
+  argTypes: { onClick: { action: "clicked" } },
+  args: {
+    style: {
+      width: "250px",
+      height: "350px",
+      backgroundColor: "white",
+    },
+  },
+} as ComponentMeta<typeof Card>;
 
-export const Basic = (): JSX.Element => (
+const Template: ComponentStory<typeof Card> = (args) => (
   <BackGround>
-    <Card
-      style={{
-        width: "250px",
-        height: "350px",
-        backgroundColor: "white",
-      }}
-    />
+    <Card {...args} />
   </BackGround>
 );
+
+export const Basic = Template.bind({});
 
 const BackGround = styled.div`
   width: 100%;
