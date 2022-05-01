@@ -20,7 +20,8 @@
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
   "rules": {
-    "react-hooks/rules-of-hooks": "warn"
+    "react-hooks/rules-of-hooks": "warn",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "settings": {
     "react": {
