@@ -18,7 +18,7 @@ function getItemStyle(
 }
 
 export interface Props {
-  id: string;
+  id: number;
   index?: number;
   title: string;
   onClick?: () => void;

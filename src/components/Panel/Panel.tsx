@@ -7,7 +7,8 @@ import Button from "../Button";
 import Card from "../Card";
 import IconButton from "../IconButton";
 import TicketDraggableContext from "./TicketDraggableContext";
-import Ticket from "../Ticket";
+import TicketComp from "../Ticket";
+import Ticket from "../../interfaces/Ticket";
 
 function getListStyle(isDraggingOver: boolean): CSSProperties {
   return {
@@ -26,10 +27,7 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
 
 export interface Props {
   title: string;
-  items?: {
-    id: string;
-    title: string;
-  }[];
+  items?: Ticket[];
   draggable?: boolean;
   onEditClick?: () => void;
   onAddTicket?: () => void;
@@ -37,19 +35,8 @@ export interface Props {
   style?: CSSProperties;
 }
 
-export default function Panel({
-  title,
-  items = [],
-  draggable = false,
-  // onEditClick,
-  ...props
-}: Props): JSX.Element {
-  const [_item, setItem] = useState<
-    {
-      id: string;
-      title: string;
-    }[]
-  >(items);
+export default function Panel({ title, items = [], draggable = false, ...props }: Props): JSX.Element {
+  const [_item, setItem] = useState<Ticket[]>(items);
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) {
@@ -83,7 +70,7 @@ export default function Panel({
                     style={getListStyle(snapshot.isDraggingOver)}
                   >
                     {_item.map((item, i) => (
-                      <Ticket key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.title} index={i} />
+                      <TicketComp key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.name} index={i} />
                     ))}
                   </Tickets>
                 )}
@@ -93,7 +80,7 @@ export default function Panel({
         ) : (
           <Tickets>
             {_item.map((item, i) => (
-              <Ticket key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.title} index={i} />
+              <TicketComp key={`panel:${title}-ticket:${item.id}`} id={item.id} title={item.name} index={i} />
             ))}
           </Tickets>
         )}
