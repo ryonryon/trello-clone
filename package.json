@@ -87,5 +87,8 @@
     "hooks": {
       "pre-commit": "npm run test && npm run lint"
     }
+  },
+  "overrides": {
+    "react-refresh": "0.11.0"
   }
 }
