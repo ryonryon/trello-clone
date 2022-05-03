@@ -9,6 +9,7 @@ import IconButton from "../IconButton";
 import TicketDraggableContext from "./TicketDraggableContext";
 import TicketComp from "../Ticket";
 import Ticket from "../../interfaces/Ticket";
+import EditableLabel from "../EditableLabel";
 
 function getListStyle(isDraggingOver: boolean): CSSProperties {
   return {
@@ -52,7 +53,7 @@ export default function Panel({ title, items = [], draggable = false, ...props }
     <_Card {...props}>
       <Content>
         <Header>
-          <Title>{title}</Title>
+          <EditableTitle value={title} />
 
           <IconButton>
             <MoreHoriz />
@@ -119,9 +120,8 @@ const Header = styled.div`
   height: 40px;
 `;
 
-const Title = styled.h4`
+const EditableTitle = styled(EditableLabel)`
   width: 100%;
-  margin: 2px 4px;
   font-weight: 600;
 `;
 

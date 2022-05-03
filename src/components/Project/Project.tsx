@@ -3,6 +3,7 @@ import { Add, Star } from "@material-ui/icons";
 import styled from "styled-components";
 import Button from "../Button";
 import IconButton from "../IconButton";
+import EditableLabel from "../EditableLabel";
 
 export interface Props {
   title: string;
@@ -16,7 +17,7 @@ export default function Project({ title, children, ...props }: Props): JSX.Eleme
     <Root {...props}>
       <Content>
         <Header>
-          <Title>{title}</Title>
+          <EditableTitle value={title} />
 
           <StarButton>
             <Star />
@@ -45,9 +46,8 @@ const Header = styled.div`
   margin-bottom: 16px;
 `;
 
-const Title = styled.h2`
-  margin: 0;
-  margin-right: 8px;
+const EditableTitle = styled(EditableLabel)`
+  font-weight: 600;
 `;
 
 const StarButton = styled(IconButton)`

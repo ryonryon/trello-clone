@@ -4,7 +4,7 @@ import { Edit } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
 import Card from "../Card";
-import { TicketDraggableContext } from "../Panel";
+import TicketDraggableContext from "../Panel/TicketDraggableContext";
 
 function getItemStyle(
   isDragging: boolean,
