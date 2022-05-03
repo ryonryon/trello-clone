@@ -1,16 +1,14 @@
 import { CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
-interface RootBodyProps {
+export interface RootBodyProps {
   value?: string;
   onBlur?: (value: string) => void;
   className?: string;
   style?: CSSProperties;
 }
 
-export interface Props extends RootBodyProps {}
-
-export default function EditableLabel({ value: initValue = "", onBlur = () => {} }: Props): JSX.Element {
+export default function EditableLabel({ value: initValue = "", onBlur = () => {} }: RootBodyProps): JSX.Element {
   const [value, setValue] = useState<string>(initValue);
   const ref = useRef<HTMLInputElement>(null);
 

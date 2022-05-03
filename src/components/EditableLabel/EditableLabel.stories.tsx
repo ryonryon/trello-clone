@@ -1,21 +1,23 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import styled from "styled-components";
 import EditableLabel from "./EditableLabel";
 
 export default {
   title: "EditableLabel",
   component: EditableLabel,
-};
+  argTypes: { onBlur: { action: "blured" } },
+  args: {
+    value: "editable label",
+  },
+} as ComponentMeta<typeof EditableLabel>;
 
-export const Basic = (): JSX.Element => (
+const Template: ComponentStory<typeof EditableLabel> = (args) => (
   <BackGround>
-    <EditableLabel
-      value="editable label"
-      onBlur={(value) => {
-        console.log(value);
-      }}
-    />
+    <EditableLabel {...args} />
   </BackGround>
 );
+
+export const Basic = Template.bind({});
 
 const BackGround = styled.div`
   width: 100%;
