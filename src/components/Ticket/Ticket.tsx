@@ -12,7 +12,7 @@ function getItemStyle(
 ): CSSProperties {
   return {
     userSelect: "none",
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "lightgreen" : "inherited",
     ...draggableStyle,
   };
 }
@@ -67,6 +67,7 @@ export default function Ticket({ id, index = 0, title, onEditClick, onClick, ...
 const CardDraggableWrapper = styled.div``;
 
 const _Card = styled(Card)`
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   background-color: #ffffff;

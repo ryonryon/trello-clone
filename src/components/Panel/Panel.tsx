@@ -11,7 +11,7 @@ import Ticket from "../Ticket";
 
 function getListStyle(isDraggingOver: boolean): CSSProperties {
   return {
-    background: isDraggingOver ? "lightblue" : "lightgrey",
+    background: isDraggingOver ? "lightblue" : "inherited",
     width: "100%",
   };
 }
