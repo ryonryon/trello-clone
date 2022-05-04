@@ -13,7 +13,7 @@ export default {
   args: {
     id: "test1",
     title: "Test",
-    style: { width: "250px", height: "50px" },
+    style: { width: "250px" },
   },
 };
 

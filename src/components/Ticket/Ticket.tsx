@@ -12,7 +12,7 @@ function getItemStyle(
 ): CSSProperties {
   return {
     userSelect: "none",
-    background: isDragging ? "lightgreen" : "grey",
+    background: isDragging ? "lightgreen" : "inherited",
     ...draggableStyle,
   };
 }
@@ -84,6 +84,7 @@ export default function Ticket({
 const CardDraggableWrapper = styled.div``;
 
 const _Card = styled(Card)`
+  box-sizing: border-box;
   background-color: #ffffff;
   padding: 6px 4px 4px 8px;
   cursor: pointer;
