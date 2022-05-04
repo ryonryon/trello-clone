@@ -8,7 +8,11 @@ export interface RootBodyProps {
   style?: CSSProperties;
 }
 
-export default function EditableLabel({ value: initValue = "", onBlur = () => {} }: RootBodyProps): JSX.Element {
+export default function EditableLabel({
+  value: initValue = "",
+  onBlur = () => {},
+  ...props
+}: RootBodyProps): JSX.Element {
   const [value, setValue] = useState<string>(initValue);
   const ref = useRef<HTMLInputElement>(null);
 
@@ -36,6 +40,7 @@ export default function EditableLabel({ value: initValue = "", onBlur = () => {}
       onChange={handleChange}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
+      {...props}
     />
   );
 }

@@ -4,7 +4,7 @@ import { Edit, Notes } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
 import Card from "../Card";
-import { TicketDraggableContext } from "../Panel";
+import TicketDraggableContext from "../Panel/TicketDraggableContext";
 
 function getItemStyle(
   isDragging: boolean,
@@ -18,7 +18,7 @@ function getItemStyle(
 }
 
 export interface Props {
-  id: string;
+  id: number;
   index?: number;
   title: string;
   description?: string;
