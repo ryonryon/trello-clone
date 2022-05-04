@@ -1,6 +1,6 @@
 import { CSSProperties, useContext } from "react";
 import { Draggable, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
-import { Edit } from "@material-ui/icons";
+import { Edit, Notes } from "@material-ui/icons";
 import styled from "styled-components";
 import IconButton from "../IconButton";
 import Card from "../Card";
@@ -21,13 +21,22 @@ export interface Props {
   id: string;
   index?: number;
   title: string;
+  description?: string;
   onClick?: () => void;
   onEditClick?: () => void;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Ticket({ id, index = 0, title, onEditClick, onClick, ...props }: Props): JSX.Element {
+export default function Ticket({
+  id,
+  index = 0,
+  title,
+  description,
+  onEditClick,
+  onClick,
+  ...props
+}: Props): JSX.Element {
   const { draggable } = useContext(TicketDraggableContext);
 
   return draggable ? (
@@ -41,7 +50,11 @@ export default function Ticket({ id, index = 0, title, onEditClick, onClick, ...
         >
           <_Card onClick={onClick} {...props}>
             <Content>
-              {title}
+              <Main>
+                <Title>{title}</Title>
+
+                {description && <Notes />}
+              </Main>
 
               <IconButton onClick={onEditClick}>
                 <Edit />
@@ -54,7 +67,11 @@ export default function Ticket({ id, index = 0, title, onEditClick, onClick, ...
   ) : (
     <_Card onClick={onClick} {...props}>
       <Content>
-        {title}
+        <Main>
+          <Title>{title}</Title>
+
+          {description && <Notes />}
+        </Main>
 
         <IconButton onClick={onEditClick}>
           <Edit />
@@ -68,10 +85,8 @@ const CardDraggableWrapper = styled.div``;
 
 const _Card = styled(Card)`
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
   background-color: #ffffff;
-  padding: 6px 4px 2px 8px;
+  padding: 6px 4px 4px 8px;
   cursor: pointer;
 
   &:hover {
@@ -82,7 +97,7 @@ const _Card = styled(Card)`
 const Content = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: 100%;
 
@@ -94,4 +109,20 @@ const Content = styled.div`
   &:hover > div:last-child {
     opacity: 0.8;
   }
+`;
+
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  & > svg {
+    font-size: 18px;
+    color: gray;
+  }
+`;
+
+const Title = styled.span`
+  margin-bottom: 8px;
 `;
