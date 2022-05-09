@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 import ProjectDefinition from "./interfaces/Project";
+import { GET_PROJECT_BY_ID } from "./api";
 import { useFetch } from "./hooks/useFetch";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Panel from "./components/Panel";
@@ -11,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function App(): JSX.Element {
-  const { data: project, isLoading } = useFetch<ProjectDefinition>("http://localhost:5030/projects/1");
+  const { data: project, isLoading } = useFetch<ProjectDefinition>(GET_PROJECT_BY_ID(1));
 
   return (
     <div>
