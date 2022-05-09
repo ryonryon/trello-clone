@@ -11,7 +11,7 @@ const MEDIUM_BORDER = "3.5px";
 const LARGE_BORDER = "5px";
 
 const getCircleSize = (size: Size) => (size === "S" ? SMALL_CIRCLE : size === "M" ? MEDIUM_CIRCLE : LARGE_CIRCLE);
-const getSpinnerSize = (size: Size) => (size === "S" ? SMALL_BORDER : size === "M" ? MEDIUM_BORDER : LARGE_BORDER);
+const getBorderSize = (size: Size) => (size === "S" ? SMALL_BORDER : size === "M" ? MEDIUM_BORDER : LARGE_BORDER);
 
 interface LoadingSpinnerProps {
   size: Size;
@@ -25,8 +25,8 @@ const Spinner = styled.div<{ size: LoadingSpinnerProps["size"] }>`
   animation: rotate 1s linear infinite;
   width: ${({ size }) => getCircleSize(size)};
   height: ${({ size }) => getCircleSize(size)};
-  border: ${({ size }) => getSpinnerSize(size)} solid #f3f3f3;
-  border-top: ${({ size }) => getSpinnerSize(size)} solid #383636;
+  border: ${({ size }) => getBorderSize(size)} solid #f3f3f3;
+  border-top: ${({ size }) => getBorderSize(size)} solid #383636;
   border-radius: 50%;
 
   @keyframes rotate {
