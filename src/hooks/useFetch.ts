@@ -26,10 +26,9 @@ export function useFetch<TResponse>(
         return;
       }
 
-      const jsonResponseBody: string = await response.json();
-      const parsedBody: TResponse = JSON.parse(jsonResponseBody);
+      const jsonResponseBody: TResponse = await response.json();
 
-      setData(parsedBody);
+      setData(jsonResponseBody);
       setIsLoading(false);
     }
 

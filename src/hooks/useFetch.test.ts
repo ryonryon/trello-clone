@@ -17,7 +17,7 @@ describe("useFetch()", () => {
     // Mock fetch api with successful response body
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve(JSON.stringify(returnBody.body)),
+        json: () => Promise.resolve(returnBody.body),
         ...returnBody,
       }),
     ) as jest.Mock;
