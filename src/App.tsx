@@ -4,7 +4,7 @@ import ProjectDefinition from "./interfaces/Project";
 import { GET_PROJECT_BY_ID } from "./api";
 import { useFetch } from "./hooks/useFetch";
 import LoadingSpinner from "./components/LoadingSpinner";
-import Panel from "./components/Panel";
+import Column from "./components/Column";
 import Project from "./components/Project";
 
 const GlobalStyle = createGlobalStyle`
@@ -24,7 +24,7 @@ export default function App(): JSX.Element {
       ) : (
         <Project title={project.name}>
           {project.columns.map((column) => (
-            <Panel key={`panel-${column.id}`} title={column.name} items={column.tickets} />
+            <Column key={`panel-${column.id}`} title={column.name} items={column.tickets} />
           ))}
         </Project>
       )}

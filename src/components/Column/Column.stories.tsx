@@ -2,7 +2,7 @@ import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
 
 import Ticket from "../../interfaces/Ticket";
-import Panel from "./Panel";
+import Column from "./Column";
 
 const items: Ticket[] = [
   { id: 1, name: "test ticket 1", description: "", order: 0 },
@@ -12,20 +12,20 @@ const items: Ticket[] = [
 ];
 
 export default {
-  title: "Panel",
-  component: Panel,
+  title: "Column",
+  component: Column,
   argTypes: {
     onClick: { action: "onClick clicked" },
     onEditClick: { action: "onEditClick clicked" },
   },
   args: {
-    title: "test panel",
+    title: "test Column",
   },
 };
 
-const Template: ComponentStory<typeof Panel> = (args) => (
+const Template: ComponentStory<typeof Column> = (args) => (
   <BackGround>
-    <Panel {...args} />
+    <Column {...args} />
   </BackGround>
 );
 
@@ -35,7 +35,7 @@ export const WithTickets = Template.bind({});
 
 WithTickets.args = {
   ...Basic.args,
-  title: "test panel with tickets",
+  title: "test Column with tickets",
   items,
 };
 
@@ -43,7 +43,7 @@ export const Draggable = Template.bind({});
 
 Draggable.args = {
   ...Basic.args,
-  title: "test panel with tickets",
+  title: "test Column with tickets",
   items,
   draggable: true,
 };
