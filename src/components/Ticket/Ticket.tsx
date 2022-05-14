@@ -40,7 +40,7 @@ export function Ticket({ title, description, onEditClick, onClick, className, st
           {description && <Notes />}
         </Main>
 
-        <IconButton onClick={onEditClick}>
+        <IconButton data-testid="ticketEditButton" onClick={onEditClick}>
           <Edit />
         </IconButton>
       </Content>
@@ -57,6 +57,7 @@ export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketPr
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+          data-testid="ticket"
         >
           <Ticket {...ticketProps} />
         </CardDraggableWrapper>

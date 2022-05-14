@@ -34,7 +34,7 @@ export default function Column({
       {draggable ? (
         <DraggableColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
       ) : (
-        <ColumnBody title={title} tickets={tickets} onEditClick={onEditClick} />
+        <ColumnBody tickets={tickets} onEditClick={onEditClick} />
       )}
       <ColumnFooter onAddTicket={onAddTicket} />
     </Body>

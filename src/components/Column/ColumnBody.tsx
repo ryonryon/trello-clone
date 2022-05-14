@@ -6,13 +6,13 @@ import TicketDefinition from "../../interfaces/Ticket";
 import { DraggableTicket, Ticket } from "../Ticket/Ticket";
 
 interface ColumnBodyProps {
-  title: string;
   tickets: TicketDefinition[];
   // This shouldn't be optional but we'll add API later so we can fix then I suppose.
   onEditClick?: () => void;
 }
 
 interface DraggableColumnBodyProps extends ColumnBodyProps {
+  title: string;
   setTickets: Dispatch<SetStateAction<TicketDefinition[]>>;
 }
 
@@ -23,11 +23,11 @@ function getListStyle(isDraggingOver: boolean): CSSProperties {
   };
 }
 
-export function ColumnBody({ title, tickets }: ColumnBodyProps): JSX.Element {
+export function ColumnBody({ tickets, onEditClick }: ColumnBodyProps): JSX.Element {
   return (
     <TicketsContainer>
       {tickets.map((item) => (
-        <Ticket key={`column:${title}-ticket:${item.id}`} title={item.name} />
+        <Ticket key={`ticketId:${item.id}`} title={item.name} onEditClick={onEditClick} />
       ))}
     </TicketsContainer>
   );
@@ -59,22 +59,24 @@ export function DraggableColumnBody({
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
+      <Droppable droppableId="droppable" direction="vertical">
         {(provided, snapshot) => (
           <TicketsContainer
-            {...provided.droppableProps}
             ref={provided.innerRef}
+            {...provided.droppableProps}
             style={getListStyle(snapshot.isDraggingOver)}
+            data-testid={`columContainer-${title}`}
           >
             {tickets.map((item, i) => (
               <DraggableTicket
-                key={`column:${title}-ticket:${item.id}`}
+                key={`ticketId:${item.id}`}
                 id={item.id}
                 title={item.name}
                 index={i}
                 onEditClick={onEditClick}
               />
             ))}
+            {provided.placeholder}
           </TicketsContainer>
         )}
       </Droppable>
