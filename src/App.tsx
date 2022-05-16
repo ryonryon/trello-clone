@@ -3,8 +3,8 @@ import styled, { createGlobalStyle } from "styled-components";
 import ProjectDefinition from "./interfaces/Project";
 import { GET_PROJECT_BY_ID } from "./api";
 import { useFetch } from "./hooks/useFetch";
+
 import LoadingSpinner from "./components/LoadingSpinner";
-import Column from "./components/Column";
 import Project from "./components/Project";
 
 const GlobalStyle = createGlobalStyle`

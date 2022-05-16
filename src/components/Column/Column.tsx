@@ -30,20 +30,25 @@ export default function Column({
 
   return (
     <Body className={className} style={style}>
-      <ColumnHeader title={title} />
-      {draggable ? (
-        <DnDColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
-      ) : (
-        <ColumnBody tickets={tickets} onEditClick={onEditClick} />
-      )}
-      <ColumnFooter onAddTicket={onAddTicket} />
+      <Container>
+        <ColumnHeader title={title} />
+        {draggable ? (
+          <DnDColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
+        ) : (
+          <ColumnBody tickets={tickets} onEditClick={onEditClick} />
+        )}
+        <ColumnFooter onAddTicket={onAddTicket} />
+      </Container>
     </Body>
   );
 }
 
 const Body = styled(Card)`
-  background-color: #ebecf0;
   min-width: 320px;
-  padding: 4px;
+  margin-right: 12px;
   cursor: pointer;
+`;
+
+const Container = styled.div`
+  background-color: #ebecf0;
 `;
