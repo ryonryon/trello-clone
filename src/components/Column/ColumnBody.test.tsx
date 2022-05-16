@@ -1,8 +1,8 @@
-import { render, screen, within, fireEvent, act } from "@testing-library/react";
+import { render, screen, within, fireEvent } from "@testing-library/react";
 import { mockGetComputedStyle, mockDndSpacing } from "react-beautiful-dnd-test-utils";
 
 import Ticket from "../../interfaces/Ticket";
-import { ColumnBody, DraggableColumnBody } from "./ColumnBody";
+import { ColumnBody, DnDColumnBody } from "./ColumnBody";
 
 describe("<ColumnBody />", () => {
   test("passed appropriate props - It should render given ticket with title", () => {
@@ -27,12 +27,12 @@ describe("<ColumnBody />", () => {
   });
 });
 
-describe("<DraggableColumnBody />", () => {
+describe("<DnDColumnBody />", () => {
   beforeEach(() => {
     mockGetComputedStyle();
   });
 
-  test("passed appropriate props - It should render given ticket with title", async () => {
+  test("passed appropriate props - It should render given ticket with title, edit icons", async () => {
     // Arrange
     const mockedColumnTitle = "Lorem Ipsum";
     const firstTicketTitle = mockedTickets[0].name;
@@ -43,7 +43,7 @@ describe("<DraggableColumnBody />", () => {
     const mockedOnEditCallback = jest.fn();
 
     const { container } = render(
-      <DraggableColumnBody
+      <DnDColumnBody
         title={mockedColumnTitle}
         tickets={mockedTickets}
         setTickets={mockedSetTicketCallback}

@@ -11,7 +11,7 @@ interface ColumnBodyProps {
   onEditClick?: () => void;
 }
 
-interface DraggableColumnBodyProps extends ColumnBodyProps {
+interface DnDColumnBodyProps extends ColumnBodyProps {
   title: string;
   setTickets: Dispatch<SetStateAction<TicketDefinition[]>>;
 }
@@ -33,12 +33,7 @@ export function ColumnBody({ tickets, onEditClick }: ColumnBodyProps): JSX.Eleme
   );
 }
 
-export function DraggableColumnBody({
-  title,
-  tickets,
-  setTickets,
-  onEditClick,
-}: DraggableColumnBodyProps): JSX.Element {
+export function DnDColumnBody({ title, tickets, setTickets, onEditClick }: DnDColumnBodyProps): JSX.Element {
   function reorder(list: TicketDefinition[], startIndex: number, endIndex: number): TicketDefinition[] {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);

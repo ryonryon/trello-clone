@@ -5,7 +5,7 @@ import Card from "../Card";
 import Ticket from "../../interfaces/Ticket";
 import { ColumnHeader } from "./ColumnHeader";
 import { ColumnFooter } from "./ColumnFooter";
-import { ColumnBody, DraggableColumnBody } from "./ColumnBody";
+import { ColumnBody, DnDColumnBody } from "./ColumnBody";
 
 export interface ColumnProps {
   title: string;
@@ -32,7 +32,7 @@ export default function Column({
     <Body className={className} style={style}>
       <ColumnHeader title={title} />
       {draggable ? (
-        <DraggableColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
+        <DnDColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
       ) : (
         <ColumnBody tickets={tickets} onEditClick={onEditClick} />
       )}
