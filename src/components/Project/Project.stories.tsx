@@ -1,7 +1,7 @@
 import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
 
-import Panel from "../Panel";
+import Column from "../Column";
 // import Project from "./Project";
 // import Ticket from "../Ticket";
 
@@ -17,7 +17,7 @@ import Panel from "../Panel";
 //   },
 // };
 
-const Template: ComponentStory<typeof Panel> = (args) => (
+const Template: ComponentStory<typeof Column> = (args) => (
   <BackGround>
     {/* <Panel title="test panel with tickets">
       <Ticket title="test ticket 1" />

@@ -1,10 +1,10 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties } from "react";
+import styled from "styled-components";
 import { Draggable, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 import { Edit, Notes } from "@material-ui/icons";
-import styled from "styled-components";
-import IconButton from "../IconButton";
+
 import Card from "../Card";
-import TicketDraggableContext from "../Panel/TicketDraggableContext";
+import IconButton from "../IconButton";
 
 function getItemStyle(
   isDragging: boolean,
@@ -17,9 +17,7 @@ function getItemStyle(
   };
 }
 
-export interface Props {
-  id: number;
-  index?: number;
+export interface TicketProps {
   title: string;
   description?: string;
   onClick?: () => void;
@@ -28,18 +26,30 @@ export interface Props {
   style?: CSSProperties;
 }
 
-export default function Ticket({
-  id,
-  index = 0,
-  title,
-  description,
-  onEditClick,
-  onClick,
-  ...props
-}: Props): JSX.Element {
-  const { draggable } = useContext(TicketDraggableContext);
+export interface DraggableTicketProps extends TicketProps {
+  id: number;
+  index: number;
+}
 
-  return draggable ? (
+export function Ticket({ title, description, onEditClick, onClick, className, style }: TicketProps): JSX.Element {
+  return (
+    <_Card onClick={onClick} className={className} style={style}>
+      <Content>
+        <Main>
+          <Title>{title}</Title>
+          {description && <Notes />}
+        </Main>
+
+        <IconButton data-testid="ticketEditButton" onClick={onEditClick}>
+          <Edit />
+        </IconButton>
+      </Content>
+    </_Card>
+  );
+}
+
+export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketProps): JSX.Element {
+  return (
     <Draggable key={`${id}`} draggableId={`${id}`} index={index}>
       {(provided, snapshot) => (
         <CardDraggableWrapper
@@ -47,37 +57,12 @@ export default function Ticket({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+          data-testid="ticket"
         >
-          <_Card onClick={onClick} {...props}>
-            <Content>
-              <Main>
-                <Title>{title}</Title>
-
-                {description && <Notes />}
-              </Main>
-
-              <IconButton onClick={onEditClick}>
-                <Edit />
-              </IconButton>
-            </Content>
-          </_Card>
+          <Ticket {...ticketProps} />
         </CardDraggableWrapper>
       )}
     </Draggable>
-  ) : (
-    <_Card onClick={onClick} {...props}>
-      <Content>
-        <Main>
-          <Title>{title}</Title>
-
-          {description && <Notes />}
-        </Main>
-
-        <IconButton onClick={onEditClick}>
-          <Edit />
-        </IconButton>
-      </Content>
-    </_Card>
   );
 }
 

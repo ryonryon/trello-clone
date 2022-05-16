@@ -1,7 +1,7 @@
 import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
 
-import Ticket from "./Ticket";
+import { Ticket } from "./Ticket";
 
 export default {
   title: "Ticket",
