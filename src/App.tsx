@@ -26,11 +26,7 @@ export default function App(): JSX.Element {
           <LoadingSpinner size="M" />
         </Container>
       ) : (
-        <Project title={project.name}>
-          {project.columns.map((column) => (
-            <Column key={`panel-${column.id}`} title={column.name} items={column.tickets} draggable />
-          ))}
-        </Project>
+        <Project project={project} />
       )}
     </Body>
   );
