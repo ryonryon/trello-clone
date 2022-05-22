@@ -1,32 +1,18 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { Add, Star } from "@material-ui/icons";
-import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd";
 
-import { reorderListItems } from "../../utils/dragAndDrop";
-
-import ColumnDefinition from "../../interfaces/Column";
 import ProjectDefinition from "../../interfaces/Project";
 
 import Button from "../Button";
 import IconButton from "../IconButton";
 import EditableLabel from "../EditableLabel";
-import Column from "../Column";
+import DnDColumnList from "./DnDColumnList";
 
 export interface Props {
   project: ProjectDefinition;
 }
 
 export default function Project({ project }: Props): JSX.Element {
-  const [columns, setColumns] = useState<ColumnDefinition[]>(project.columns);
-
-  const handleOnDragEnd = ({ destination, source }: DropResult) => {
-    if (!destination) return;
-    const reorderedColumns = reorderListItems(columns, source.index, destination.index);
-
-    setColumns(reorderedColumns);
-  };
-
   return (
     <Root>
       <Header>
@@ -38,34 +24,8 @@ export default function Project({ project }: Props): JSX.Element {
       </Header>
 
       <Panels>
-        {/* TODO: Bring DnD part of component out of this component */}
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="droppable" direction="horizontal">
-            {(provided) => (
-              <ColumnListContainer
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-                data-testid={`columListContainer-${project.name}`}
-              >
-                {columns.map((column, index) => (
-                  <Draggable key={column.id} draggableId={`column_${column.id}`} index={index}>
-                    {(provided) => (
-                      <ColumnListContainer
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Column key={`column-${column.id}`} title={column.name} items={column.tickets} draggable />
-                      </ColumnListContainer>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ColumnListContainer>
-            )}
-          </Droppable>
-          <AnotherListButton title="Add another list" icon={<Add />} textLeft />
-        </DragDropContext>
+        <DnDColumnList projectColumns={project.columns} />
+        <AnotherListButton title="Add another list" icon={<Add />} textLeft />
       </Panels>
     </Root>
   );
@@ -101,12 +61,6 @@ const Panels = styled.div`
   height: 100%;
   justify-content: flex-start;
   align-items: baseline;
-`;
-
-const ColumnListContainer = styled.div`
-  display: flex;
-  height: 100%;
-  flex-direction: row;
 `;
 
 const AnotherListButton = styled(Button)`

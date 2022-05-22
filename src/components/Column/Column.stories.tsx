@@ -1,15 +1,20 @@
 import { ComponentStory } from "@storybook/react";
 import styled from "styled-components";
 
-import Ticket from "../../interfaces/Ticket";
+import ColumnDefinition from "../../interfaces/Column";
 import Column from "./Column";
 
-const items: Ticket[] = [
-  { id: 1, name: "test ticket 1", description: "", order: 0 },
-  { id: 2, name: "test ticket 2", description: "", order: 1 },
-  { id: 3, name: "test ticket 3", description: "", order: 2 },
-  { id: 4, name: "test ticket 4", description: "", order: 3 },
-];
+const mockedColumnBody: ColumnDefinition = {
+  id: 1,
+  name: "Column",
+  order: 1,
+  tickets: [
+    { id: 1, name: "test ticket 1", description: "", order: 0 },
+    { id: 2, name: "test ticket 2", description: "", order: 1 },
+    { id: 3, name: "test ticket 3", description: "", order: 2 },
+    { id: 4, name: "test ticket 4", description: "", order: 3 },
+  ],
+};
 
 export default {
   title: "Column",
@@ -35,16 +40,14 @@ export const WithTickets = Template.bind({});
 
 WithTickets.args = {
   ...Basic.args,
-  title: "test Column with tickets",
-  items,
+  column: mockedColumnBody,
 };
 
 export const Draggable = Template.bind({});
 
 Draggable.args = {
   ...Basic.args,
-  title: "test Column with tickets",
-  items,
+  column: mockedColumnBody,
   draggable: true,
 };
 

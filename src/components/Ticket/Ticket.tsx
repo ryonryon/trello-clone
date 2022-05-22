@@ -48,7 +48,7 @@ export function Ticket({ title, description, onEditClick, onClick, className, st
 
 export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketProps): JSX.Element {
   return (
-    <Draggable key={`${id}`} draggableId={`${id}`} index={index}>
+    <Draggable key={`${id}`} draggableId={`rowItem_${id}`} index={index}>
       {(provided, snapshot) => (
         <CardDraggableWrapper
           ref={provided.innerRef}
