@@ -34,6 +34,7 @@ export default function App(): JSX.Element {
 
 const Container = styled.div`
   display: flex;
+  flex: 1;
   height: 100vh;
   align-items: center;
   justify-content: center;
