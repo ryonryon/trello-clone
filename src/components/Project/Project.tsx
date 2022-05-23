@@ -18,7 +18,7 @@ export default function Project({ project }: Props): JSX.Element {
       <Header>
         <EditableTitle value={project.name} />
 
-        <StarButton>
+        <StarButton data-testid="starButton">
           <Star />
         </StarButton>
       </Header>
