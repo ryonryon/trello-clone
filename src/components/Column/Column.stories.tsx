@@ -1,7 +1,9 @@
 import { ComponentStory } from "@storybook/react";
+import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import ColumnDefinition from "../../interfaces/Column";
+import { GrabbedItemContext, GRABBED_ITEM_CATEGORY } from "../Project/DnDColumnList";
 import Column from "./Column";
 
 const mockedColumnBody: ColumnDefinition = {
@@ -25,6 +27,7 @@ export default {
   },
   args: {
     title: "test Column",
+    column: { ...mockedColumnBody, tickets: [] },
   },
 };
 
@@ -43,7 +46,15 @@ WithTickets.args = {
   column: mockedColumnBody,
 };
 
-export const Draggable = Template.bind({});
+export const Draggable: ComponentStory<typeof Column> = (args) => (
+  <GrabbedItemContext.Provider value={GRABBED_ITEM_CATEGORY.ROW_TICKET}>
+    <DragDropContext onDragEnd={() => null}>
+      <BackGround>
+        <Column {...args} />
+      </BackGround>
+    </DragDropContext>
+  </GrabbedItemContext.Provider>
+);
 
 Draggable.args = {
   ...Basic.args,
