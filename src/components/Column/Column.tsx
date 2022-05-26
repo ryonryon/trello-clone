@@ -1,15 +1,15 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties } from "react";
 import styled from "styled-components";
 
+import ColumnDefinition from "../../interfaces/Column";
+
 import Card from "../Card";
-import Ticket from "../../interfaces/Ticket";
 import { ColumnHeader } from "./ColumnHeader";
 import { ColumnFooter } from "./ColumnFooter";
 import { ColumnBody, DnDColumnBody } from "./ColumnBody";
 
 export interface ColumnProps {
-  title: string;
-  items?: Ticket[];
+  column: ColumnDefinition;
   draggable?: boolean;
   onEditClick?: () => void;
   onAddTicket?: () => void;
@@ -18,32 +18,34 @@ export interface ColumnProps {
 }
 
 export default function Column({
-  title,
-  items = [],
+  column,
   draggable,
   onEditClick,
   onAddTicket,
   className,
   style,
 }: ColumnProps): JSX.Element {
-  const [tickets, setTickets] = useState<Ticket[]>(items);
-
   return (
     <Body className={className} style={style}>
-      <ColumnHeader title={title} />
-      {draggable ? (
-        <DnDColumnBody setTickets={setTickets} title={title} tickets={tickets} onEditClick={onEditClick} />
-      ) : (
-        <ColumnBody tickets={tickets} onEditClick={onEditClick} />
-      )}
-      <ColumnFooter onAddTicket={onAddTicket} />
+      <Container>
+        <ColumnHeader title={column.name} />
+        {draggable ? (
+          <DnDColumnBody title={column.name} columnId={column.id} tickets={column.tickets} onEditClick={onEditClick} />
+        ) : (
+          <ColumnBody tickets={column.tickets} onEditClick={onEditClick} />
+        )}
+        <ColumnFooter onAddTicket={onAddTicket} />
+      </Container>
     </Body>
   );
 }
 
 const Body = styled(Card)`
-  background-color: #ebecf0;
   min-width: 320px;
-  padding: 4px;
+  margin-right: 12px;
   cursor: pointer;
+`;
+
+const Container = styled.div`
+  background-color: #ebecf0;
 `;

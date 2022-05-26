@@ -1,8 +1,9 @@
-import { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
 import styled, { CSSProperties } from "styled-components";
-import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 
 import TicketDefinition from "../../interfaces/Ticket";
+import { GrabbedItemContext, GRABBED_ITEM_CATEGORY } from "../Project/DnDColumnList";
 import { DraggableTicket, Ticket } from "../Ticket/Ticket";
 
 interface ColumnBodyProps {
@@ -13,7 +14,7 @@ interface ColumnBodyProps {
 
 interface DnDColumnBodyProps extends ColumnBodyProps {
   title: string;
-  setTickets: Dispatch<SetStateAction<TicketDefinition[]>>;
+  columnId: number;
 }
 
 function getListStyle(isDraggingOver: boolean): CSSProperties {
@@ -33,58 +34,39 @@ export function ColumnBody({ tickets, onEditClick }: ColumnBodyProps): JSX.Eleme
   );
 }
 
-export function DnDColumnBody({ title, tickets, setTickets, onEditClick }: DnDColumnBodyProps): JSX.Element {
-  function reorder(list: TicketDefinition[], startIndex: number, endIndex: number): TicketDefinition[] {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
-  }
-
-  const onDragEnd = ({ destination, source }: DropResult) => {
-    if (!destination) {
-      return;
-    }
-
-    const items = reorder(tickets, source.index, destination.index);
-
-    setTickets(items);
-  };
+export function DnDColumnBody({ title, columnId, tickets, onEditClick }: DnDColumnBodyProps): JSX.Element {
+  const grabbedItemContext = useContext(GrabbedItemContext);
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable" direction="vertical">
-        {(provided, snapshot) => (
-          <TicketsContainer
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            style={getListStyle(snapshot.isDraggingOver)}
-            data-testid={`columContainer-${title}`}
-          >
-            {tickets.map((item, i) => (
-              <DraggableTicket
-                key={`ticketId:${item.id}`}
-                id={item.id}
-                title={item.name}
-                index={i}
-                onEditClick={onEditClick}
-              />
-            ))}
-            {provided.placeholder}
-          </TicketsContainer>
-        )}
-      </Droppable>
-    </DragDropContext>
+    // this droppable area should be disabled when gragged item is column
+    <Droppable droppableId={`${columnId}`} isDropDisabled={grabbedItemContext === GRABBED_ITEM_CATEGORY.COLUMN}>
+      {(provided, snapshot) => (
+        <TicketsContainer
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          style={getListStyle(snapshot.isDraggingOver)}
+          data-testid={`columContainer-${title}`}
+        >
+          {tickets.map((item, i) => (
+            <DraggableTicket
+              key={`ticketId:${item.id}`}
+              id={item.id}
+              title={item.name}
+              index={i}
+              onEditClick={onEditClick}
+            />
+          ))}
+          {provided.placeholder}
+        </TicketsContainer>
+      )}
+    </Droppable>
   );
 }
 
 const TicketsContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
   width: 100%;
+  flex-direction: column;
   margin-bottom: 4px;
 
   & > div {

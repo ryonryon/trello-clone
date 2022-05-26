@@ -1,7 +1,9 @@
 import { render, screen, within, fireEvent } from "@testing-library/react";
+import { DragDropContext } from "react-beautiful-dnd";
 import { mockGetComputedStyle, mockDndSpacing } from "react-beautiful-dnd-test-utils";
 
 import Ticket from "../../interfaces/Ticket";
+import { GrabbedItemContext, GRABBED_ITEM_CATEGORY } from "../Project/DnDColumnList";
 import { ColumnBody, DnDColumnBody } from "./ColumnBody";
 
 describe("<ColumnBody />", () => {
@@ -38,25 +40,30 @@ describe("<DnDColumnBody />", () => {
     const firstTicketTitle = mockedTickets[0].name;
     const secondTicketTitle = mockedTickets[1].name;
     const thirdTicketTitle = mockedTickets[2].name;
+    const mockedCallback = jest.fn();
 
-    const mockedSetTicketCallback = jest.fn();
     const mockedOnEditCallback = jest.fn();
 
     const { container } = render(
-      <DnDColumnBody
-        title={mockedColumnTitle}
-        tickets={mockedTickets}
-        setTickets={mockedSetTicketCallback}
-        onEditClick={mockedOnEditCallback}
-      />,
+      <GrabbedItemContext.Provider value={GRABBED_ITEM_CATEGORY.ROW_TICKET}>
+        <DragDropContext onDragEnd={mockedCallback}>
+          <DnDColumnBody
+            columnId={1}
+            title={mockedColumnTitle}
+            tickets={mockedTickets}
+            onEditClick={mockedOnEditCallback}
+          />
+        </DragDropContext>
+      </GrabbedItemContext.Provider>,
     );
+
     mockDndSpacing(container);
 
     // Act
     screen.getAllByTestId("ticketEditButton").forEach((element) => {
       fireEvent.click(element);
     });
-    // this function doesn't run drag on test. Need further research.
+    // // this function doesn't run drag on test. Need further research.
     // await makeDnd({
     //   getDragElement: () => screen.getByText(firstTicketTitle).closest(DND_DRAGGABLE_DATA_ATTR),
     //   direction: DND_DIRECTION_DOWN,

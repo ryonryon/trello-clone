@@ -34,23 +34,21 @@ export interface DraggableTicketProps extends TicketProps {
 export function Ticket({ title, description, onEditClick, onClick, className, style }: TicketProps): JSX.Element {
   return (
     <_Card onClick={onClick} className={className} style={style}>
-      <Content>
-        <Main>
-          <Title>{title}</Title>
-          {description && <Notes />}
-        </Main>
+      <Main>
+        <Title>{title}</Title>
+        {description && <Notes />}
+      </Main>
 
-        <IconButton data-testid="ticketEditButton" onClick={onEditClick}>
-          <Edit />
-        </IconButton>
-      </Content>
+      <IconButton data-testid="ticketEditButton" onClick={onEditClick}>
+        <Edit />
+      </IconButton>
     </_Card>
   );
 }
 
 export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketProps): JSX.Element {
   return (
-    <Draggable key={`${id}`} draggableId={`${id}`} index={index}>
+    <Draggable key={`${id}`} draggableId={`rowItem_${id}`} index={index}>
       {(provided, snapshot) => (
         <CardDraggableWrapper
           ref={provided.innerRef}
@@ -69,22 +67,17 @@ export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketPr
 const CardDraggableWrapper = styled.div``;
 
 const _Card = styled(Card)`
-  box-sizing: border-box;
+  display: flex;
   background-color: #ffffff;
-  padding: 6px 4px 4px 8px;
+  padding: 6px 0px 4px 8px;
+  margin: 0 8px;
+  margin-top: 4px;
+
   cursor: pointer;
 
   &:hover {
     background-color: #ebecf0;
   }
-`;
-
-const Content = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  height: 100%;
 
   & > div:last-child {
     opacity: 0;

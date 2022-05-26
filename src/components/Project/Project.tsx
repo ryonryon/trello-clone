@@ -1,43 +1,41 @@
-import { CSSProperties } from "react";
-import { Add, Star } from "@material-ui/icons";
 import styled from "styled-components";
+import { Add, Star } from "@material-ui/icons";
+
+import ProjectDefinition from "../../interfaces/Project";
+
 import Button from "../Button";
 import IconButton from "../IconButton";
 import EditableLabel from "../EditableLabel";
+import DnDColumnList from "./DnDColumnList";
 
 export interface Props {
-  title: string;
-  children?: React.ReactNode;
-  className?: string;
-  style?: CSSProperties;
+  project: ProjectDefinition;
 }
 
-export default function Project({ title, children, ...props }: Props): JSX.Element {
+export default function Project({ project }: Props): JSX.Element {
   return (
-    <Root {...props}>
-      <Content>
-        <Header>
-          <EditableTitle value={title} />
+    <Root>
+      <Header>
+        <EditableTitle value={project.name} />
 
-          <StarButton>
-            <Star />
-          </StarButton>
-        </Header>
+        <StarButton data-testid="starButton">
+          <Star />
+        </StarButton>
+      </Header>
 
-        <Panels>
-          {children}
-
-          <AnotherListButton title="Add another list" icon={<Add />} textLeft />
-        </Panels>
-      </Content>
+      <Panels>
+        <DnDColumnList projectColumns={project.columns} />
+        <AnotherListButton title="Add another list" icon={<Add />} textLeft />
+      </Panels>
     </Root>
   );
 }
 
-const Root = styled.div``;
-
-const Content = styled.div`
-  width: 100%;
+const Root = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 8px;
 `;
 
 const Header = styled.div`
@@ -60,16 +58,9 @@ const StarButton = styled(IconButton)`
 
 const Panels = styled.div`
   display: flex;
+  height: 100%;
   justify-content: flex-start;
   align-items: baseline;
-
-  & > div {
-    margin-right: 8px;
-  }
-
-  & > div:last-child {
-    margin-right: 0;
-  }
 `;
 
 const AnotherListButton = styled(Button)`
