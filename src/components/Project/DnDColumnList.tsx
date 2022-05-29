@@ -124,6 +124,7 @@ export default function DnDColumnList({ projectColumns }: DnDColumnListProps): J
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      tabIndex={-1}
                     >
                       <Column key={`column-${column.id}`} column={column} draggable />
                     </ColumnListContainer>
