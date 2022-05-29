@@ -9,7 +9,11 @@ export interface Props {
 }
 
 export default function IconButton({ children, ...props }: Props): JSX.Element {
-  return <Root {...props}>{children}</Root>;
+  return (
+    <Root data-testid="icon_button" {...props}>
+      {children}
+    </Root>
+  );
 }
 
 const Root = styled.div`
