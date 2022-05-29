@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { Add, Star } from "@material-ui/icons";
 
+import { UPDATE_PROJECT_TITLE } from "../../api";
+import { useMutation } from "../../hooks/useMutation";
 import ProjectDefinition from "../../interfaces/Project";
-
 import Button from "../Button";
 import IconButton from "../IconButton";
 import EditableLabel from "../EditableLabel";
@@ -13,10 +14,18 @@ export interface Props {
 }
 
 export default function Project({ project }: Props): JSX.Element {
+  const { call } = useMutation<ProjectDefinition>(UPDATE_PROJECT_TITLE(project.id), "PUT");
+
+  const handleBlur = async (value: string) => {
+    await call({
+      variables: { name: value },
+    });
+  };
+
   return (
     <Root>
       <Header>
-        <EditableTitle value={project.name} />
+        <EditableTitle value={project.name} onBlur={handleBlur} />
 
         <StarButton data-testid="starButton">
           <Star />
