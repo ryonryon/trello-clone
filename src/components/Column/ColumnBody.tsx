@@ -17,13 +17,6 @@ interface DnDColumnBodyProps extends ColumnBodyProps {
   columnId: number;
 }
 
-function getListStyle(isDraggingOver: boolean): CSSProperties {
-  return {
-    background: isDraggingOver ? "lightblue" : "inherited",
-    width: "100%",
-  };
-}
-
 export function ColumnBody({ tickets, onEditClick }: ColumnBodyProps): JSX.Element {
   return (
     <TicketsContainer>
@@ -40,13 +33,8 @@ export function DnDColumnBody({ title, columnId, tickets, onEditClick }: DnDColu
   return (
     // this droppable area should be disabled when gragged item is column
     <Droppable droppableId={`${columnId}`} isDropDisabled={grabbedItemContext === GRABBED_ITEM_CATEGORY.COLUMN}>
-      {(provided, snapshot) => (
-        <TicketsContainer
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-          style={getListStyle(snapshot.isDraggingOver)}
-          data-testid={`columContainer-${title}`}
-        >
+      {(provided) => (
+        <TicketsContainer ref={provided.innerRef} {...provided.droppableProps} data-testid={`columContainer-${title}`}>
           {tickets.map((item, i) => (
             <DraggableTicket
               key={`ticketId:${item.id}`}
