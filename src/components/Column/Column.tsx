@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties } from "react";
 import styled from "styled-components";
 
 import ColumnDefinition from "../../interfaces/Column";
@@ -7,7 +7,6 @@ import Card from "../Card";
 import { ColumnHeader } from "./ColumnHeader";
 import { ColumnFooter } from "./ColumnFooter";
 import { ColumnBody, DnDColumnBody } from "./ColumnBody";
-import _EditableTicket from "../EditableTicket";
 
 export interface ColumnProps {
   column: ColumnDefinition;
@@ -22,24 +21,12 @@ export default function Column({
   column,
   draggable,
   onEditClick,
-  onAddTicket = () => {},
+  onAddTicket,
   className,
   style,
 }: ColumnProps): JSX.Element {
-  const [isAddingTicket, setAddingTicket] = useState(false);
-
-  const handleBlur = (value: string) => {
-    onAddTicket(value);
-
-    setAddingTicket(false);
-  };
-
-  const handleAddTicket = () => {
-    setAddingTicket(true);
-  };
-
   return (
-    <Body className={className} style={style}>
+    <Root className={className} style={style}>
       <Container>
         <ColumnHeader title={column.name} />
         {draggable ? (
@@ -48,24 +35,19 @@ export default function Column({
           <ColumnBody tickets={column.tickets} onEditClick={onEditClick} />
         )}
 
-        {isAddingTicket && <EditableTicket onBlur={handleBlur} />}
-
-        <ColumnFooter onAddTicket={handleAddTicket} />
+        <ColumnFooter onAddTicket={onAddTicket} />
       </Container>
-    </Body>
+    </Root>
   );
 }
 
-const Body = styled(Card)`
+const Root = styled.div`
   min-width: 320px;
   margin-right: 12px;
   cursor: pointer;
 `;
 
-const Container = styled.div`
-  background-color: #ebecf0;
-`;
-
-const EditableTicket = styled(_EditableTicket)`
+const Container = styled(Card)`
   width: 100%;
+  background-color: #ebecf0;
 `;

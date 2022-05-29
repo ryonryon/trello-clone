@@ -88,6 +88,7 @@ const Textarea = styled.textarea`
   width: 100%;
   min-height: 80px;
   resize: none;
+  font-family: inherited;
 
   &:focus {
     outline: none;

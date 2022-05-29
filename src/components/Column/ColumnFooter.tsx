@@ -1,26 +1,69 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Add, FileCopy } from "@material-ui/icons";
 
 import Button from "../Button";
 import IconButton from "../IconButton";
+import _EditableTicket from "../EditableTicket";
 
 interface ColumnFooterProps {
   // This shouldn't be optional but we'll add API later so we can fix then I suppose.
-  onAddTicket?: () => void;
+  onAddTicket?: (value: string) => void;
 }
 
-export function ColumnFooter({ onAddTicket }: ColumnFooterProps): JSX.Element {
+export function ColumnFooter({ onAddTicket = () => {} }: ColumnFooterProps): JSX.Element {
+  const [isAddingTicket, setAddingTicket] = useState(false);
+
+  const handleBlur = (value: string) => {
+    onAddTicket(value);
+
+    setAddingTicket(false);
+  };
+
+  const handleAddTicket = () => {
+    setAddingTicket(true);
+  };
+
   return (
-    <FooterBody onClick={onAddTicket}>
-      <AddATicketButton title="Add a card" icon={<Add />} textLeft />
-      <IconButton>
-        <FileCopy />
-      </IconButton>
-    </FooterBody>
+    <Root>
+      <Container>
+        {isAddingTicket && <EditableTicket placeholder="Enter a title for this card..." onBlur={handleBlur} />}
+
+        <Buttons onClick={handleAddTicket}>
+          <AddATicketButton title="Add a card" icon={<Add />} textLeft />
+
+          <IconButton>
+            <FileCopy />
+          </IconButton>
+        </Buttons>
+      </Container>
+    </Root>
   );
 }
 
-const FooterBody = styled.div`
+const Root = styled.div`
+  width: 100%;
+`;
+
+const Container = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 8px;
+
+  & > div {
+    margin-bottom: 8px;
+  }
+
+  & > div:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const EditableTicket = styled(_EditableTicket)`
+  width: 100%;
+`;
+
+const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
