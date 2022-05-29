@@ -1,21 +1,10 @@
 import { CSSProperties } from "react";
 import styled from "styled-components";
-import { Draggable, DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 import { Edit, Notes } from "@material-ui/icons";
 
 import Card from "../Card";
 import IconButton from "../IconButton";
-
-function getItemStyle(
-  isDragging: boolean,
-  draggableStyle?: DraggingStyle | NotDraggingStyle | undefined,
-): CSSProperties {
-  return {
-    userSelect: "none",
-    background: isDragging ? "lightgreen" : "inherited",
-    ...draggableStyle,
-  };
-}
 
 export interface TicketProps {
   title: string;
@@ -49,12 +38,11 @@ export function Ticket({ title, description, onEditClick, onClick, className, st
 export function DraggableTicket({ id, index, ...ticketProps }: DraggableTicketProps): JSX.Element {
   return (
     <Draggable key={`${id}`} draggableId={`rowItem_${id}`} index={index}>
-      {(provided, snapshot) => (
+      {(provided) => (
         <CardDraggableWrapper
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
           data-testid="ticket"
         >
           <Ticket {...ticketProps} />
