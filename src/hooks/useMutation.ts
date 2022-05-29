@@ -46,8 +46,6 @@ export function useMutation<TResponse>(
         setError({ status: response.status, statusText: response.statusText, message });
         setIsLoading(false);
 
-        console.log({ status: response.status, statusText: response.statusText, message });
-
         return null;
       }
 
