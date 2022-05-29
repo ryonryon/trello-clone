@@ -8,9 +8,12 @@ describe("<ColumnFooter />", () => {
 
     render(<ColumnFooter onAddTicket={mockedCallback} />);
     const addButton = screen.getByRole("button");
+    fireEvent.click(addButton);
+
+    const createTicket = screen.getByLabelText("editable-ticket");
 
     // Act
-    fireEvent.click(addButton);
+    fireEvent.blur(createTicket);
 
     // Assert
     expect(mockedCallback).toBeCalled();
