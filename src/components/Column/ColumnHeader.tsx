@@ -10,16 +10,18 @@ interface ColumnHeader {
 
 export function ColumnHeader({ title }: ColumnHeader): JSX.Element {
   return (
-    <HeaderBody>
+    <Root>
       <EditableTitle value={title} />
+
       <IconButton>
         <MoreHoriz />
       </IconButton>
-    </HeaderBody>
+    </Root>
   );
 }
 
-const HeaderBody = styled.div`
+const Root = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -27,6 +29,7 @@ const HeaderBody = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
+  padding: 4px 8px;
 `;
 
 const EditableTitle = styled(EditableLabel)`

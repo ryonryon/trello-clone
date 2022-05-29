@@ -12,7 +12,7 @@ export interface ColumnProps {
   column: ColumnDefinition;
   draggable?: boolean;
   onEditClick?: () => void;
-  onAddTicket?: () => void;
+  onAddTicket?: (value: string) => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -26,7 +26,7 @@ export default function Column({
   style,
 }: ColumnProps): JSX.Element {
   return (
-    <Body className={className} style={style}>
+    <Root className={className} style={style}>
       <Container>
         <ColumnHeader title={column.name} />
         {draggable ? (
@@ -34,18 +34,20 @@ export default function Column({
         ) : (
           <ColumnBody tickets={column.tickets} onEditClick={onEditClick} />
         )}
+
         <ColumnFooter onAddTicket={onAddTicket} />
       </Container>
-    </Body>
+    </Root>
   );
 }
 
-const Body = styled(Card)`
+const Root = styled.div`
   min-width: 320px;
   margin-right: 12px;
   cursor: pointer;
 `;
 
-const Container = styled.div`
+const Container = styled(Card)`
+  width: 100%;
   background-color: #ebecf0;
 `;
