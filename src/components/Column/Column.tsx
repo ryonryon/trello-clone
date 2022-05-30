@@ -1,8 +1,9 @@
 import { CSSProperties } from "react";
 import styled from "styled-components";
 
+import { UPDATE_COLUMN_TITLE } from "../../api";
+import { useMutation } from "../../hooks/useMutation";
 import ColumnDefinition from "../../interfaces/Column";
-
 import Card from "../Card";
 import { ColumnHeader } from "./ColumnHeader";
 import { ColumnFooter } from "./ColumnFooter";
@@ -25,10 +26,18 @@ export default function Column({
   className,
   style,
 }: ColumnProps): JSX.Element {
+  const { call } = useMutation<ColumnDefinition>(UPDATE_COLUMN_TITLE(1, column.id), "PATCH");
+
+  const handleTitleChange = async (value: string) => {
+    await call({
+      variables: { name: value },
+    });
+  };
+
   return (
     <Root className={className} style={style}>
       <Container>
-        <ColumnHeader title={column.name} />
+        <ColumnHeader title={column.name} onTitleChange={handleTitleChange} />
         {draggable ? (
           <DnDColumnBody title={column.name} columnId={column.id} tickets={column.tickets} onEditClick={onEditClick} />
         ) : (

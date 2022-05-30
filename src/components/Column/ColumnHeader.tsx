@@ -6,12 +6,13 @@ import IconButton from "../IconButton";
 
 interface ColumnHeader {
   title: string;
+  onTitleChange: (value: string) => void;
 }
 
-export function ColumnHeader({ title }: ColumnHeader): JSX.Element {
+export function ColumnHeader({ title, onTitleChange }: ColumnHeader): JSX.Element {
   return (
     <Root>
-      <EditableTitle value={title} />
+      <EditableTitle value={title} onBlur={onTitleChange} />
 
       <IconButton>
         <MoreHoriz />
