@@ -19,7 +19,15 @@ describe("<Project />", () => {
     // project title
     expect(allColumnLabels[0]).toHaveProperty("value", projectTitle);
     // project's star icon
+    expect(screen.getByTestId("boardButton")).toBeTruthy();
     expect(screen.getByTestId("starButton")).toBeTruthy();
+    expect(screen.getByTestId("testButton")).toBeTruthy();
+    expect(screen.getByTestId("workSpaceButton")).toBeTruthy();
+    expect(screen.getByTestId("shareButton")).toBeTruthy();
+    expect(screen.getByTestId("powerUpsButton")).toBeTruthy();
+    expect(screen.getByTestId("automationButton")).toBeTruthy();
+    expect(screen.getByTestId("filterButton")).toBeTruthy();
+    expect(screen.getByTestId("showMenuButton")).toBeTruthy();
 
     // column title
     expect(allColumnLabels[1]).toHaveProperty("value", firstColumnTitle);
