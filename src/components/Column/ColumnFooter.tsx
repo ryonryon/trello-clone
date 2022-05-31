@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Add, FileCopy } from "@material-ui/icons";
+import { Add, Close, FileCopy } from "@material-ui/icons";
 
 import Button from "../Button";
 import IconButton from "../IconButton";
@@ -13,28 +13,63 @@ interface ColumnFooterProps {
 
 export function ColumnFooter({ onAddTicket = () => {} }: ColumnFooterProps): JSX.Element {
   const [isAddingTicket, setAddingTicket] = useState(false);
+  const [editableTicketValue, setEditableTicketValue] = useState("");
 
-  const handleBlur = (value: string) => {
-    onAddTicket(value);
-
-    setAddingTicket(false);
+  const handleEditableTicket = (value: string) => {
+    setEditableTicketValue(value);
   };
 
-  const handleAddTicket = () => {
+  const handleBlur = (value: string) => {
+    setAddingTicket(false);
+    onAddTicket(value);
+    setEditableTicketValue("");
+  };
+
+  const handleAddCardClick = () => {
+    setAddingTicket(false);
+    onAddTicket(editableTicketValue);
+    setEditableTicketValue("");
+  };
+
+  const handleClose = () => {
+    setAddingTicket(false);
+    setEditableTicketValue("");
+  };
+
+  const handleAddTicketClick = () => {
     setAddingTicket(true);
   };
 
   return (
     <Root>
       <Container>
-        {isAddingTicket && <EditableTicket placeholder="Enter a title for this card..." onBlur={handleBlur} />}
+        {isAddingTicket && (
+          <EditableTicket
+            placeholder="Enter a title for this card..."
+            value={editableTicketValue}
+            onChange={handleEditableTicket}
+            onBlur={handleBlur}
+          />
+        )}
 
-        <Buttons onClick={handleAddTicket}>
-          <AddATicketButton title="Add a card" icon={<Add />} textLeft />
+        <Buttons>
+          {isAddingTicket ? (
+            <AddingTicketButtons>
+              <AddCardButton title="Add card" onClick={handleAddCardClick} />
 
-          <IconButton>
-            <FileCopy />
-          </IconButton>
+              <IconButton onClick={handleClose}>
+                <Close />
+              </IconButton>
+            </AddingTicketButtons>
+          ) : (
+            <>
+              <AddATicketButton title="Add a card" icon={<Add />} textLeft onClick={handleAddTicketClick} />
+
+              <IconButton>
+                <FileCopy />
+              </IconButton>
+            </>
+          )}
         </Buttons>
       </Container>
     </Root>
@@ -71,6 +106,31 @@ const Buttons = styled.div`
   align-items: center;
   width: 100%;
   height: 40px;
+`;
+
+const AddingTicketButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > * {
+    margin-right: 4px;
+  }
+
+  & > *:last-child {
+    margin-right: 0;
+  }
+`;
+
+const AddCardButton = styled(Button)`
+  background-color: #0179bf;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #026aa7;
+  }
 `;
 
 const AddATicketButton = styled(Button)`

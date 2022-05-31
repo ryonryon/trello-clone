@@ -13,25 +13,21 @@ export interface ColumnProps {
   column: ColumnDefinition;
   draggable?: boolean;
   onEditClick?: () => void;
-  onAddTicket?: (value: string) => void;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Column({
-  column,
-  draggable,
-  onEditClick,
-  onAddTicket,
-  className,
-  style,
-}: ColumnProps): JSX.Element {
+export default function Column({ column, draggable, onEditClick, className, style }: ColumnProps): JSX.Element {
   const { call } = useMutation<ColumnDefinition>(UPDATE_COLUMN_TITLE(1, column.id), "PATCH");
 
   const handleTitleBlur = async (value: string) => {
     await call({
       variables: { name: value },
     });
+  };
+
+  const handleAddTicket = (value: string) => {
+    console.log(value);
   };
 
   return (
@@ -44,7 +40,7 @@ export default function Column({
           <ColumnBody tickets={column.tickets} onEditClick={onEditClick} />
         )}
 
-        <ColumnFooter onAddTicket={onAddTicket} />
+        <ColumnFooter onAddTicket={handleAddTicket} />
       </Container>
     </Root>
   );

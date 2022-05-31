@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { FormEventHandler, useEffect } from "react";
 import { CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -7,6 +7,7 @@ import Card from "../Card";
 export interface EditableTicketProps {
   value?: string;
   placeholder?: string;
+  onChange?: (value: string) => void;
   onBlur?: (value: string) => void;
   className?: string;
   style?: CSSProperties;
@@ -15,6 +16,7 @@ export interface EditableTicketProps {
 export default function EditableTicket({
   value: _value = "",
   placeholder = "",
+  onChange = () => {},
   onBlur = () => {},
   className,
   style,
@@ -24,6 +26,7 @@ export default function EditableTicket({
 
   const handleChange = (event: FormEvent<HTMLTextAreaElement>) => {
     setValue(event.currentTarget.value);
+    onChange(event.currentTarget.value);
   };
 
   const handleBlur = () => {
