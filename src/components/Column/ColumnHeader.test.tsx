@@ -5,9 +5,9 @@ describe("<ColumnHeader />", () => {
   test("passed header - should render with passed value", () => {
     // Arrange
     const mockedTitle = "Lorem Ipsum";
-    const mockedOnTitleChange = jest.fn();
+    const mockedOnTitleBlur = jest.fn();
 
-    render(<ColumnHeader title={mockedTitle} onTitleChange={mockedOnTitleChange} />);
+    render(<ColumnHeader title={mockedTitle} onTitleBlur={mockedOnTitleBlur} />);
     const renderedEditableLabel = screen.getByLabelText("editable-label");
 
     // Assert
@@ -18,9 +18,9 @@ describe("<ColumnHeader />", () => {
     // Arrange
     const mockedTitle = "Lorem Ipsum";
     const mockedChangedValue = "It is a long established fact that a reader";
-    const mockedOnTitleChange = jest.fn();
+    const mockedOnTitleBlur = jest.fn();
 
-    render(<ColumnHeader title={mockedTitle} onTitleChange={mockedOnTitleChange} />);
+    render(<ColumnHeader title={mockedTitle} onTitleBlur={mockedOnTitleBlur} />);
     const renderedEditableLabel = screen.getByLabelText("editable-label");
 
     // Act
@@ -30,50 +30,50 @@ describe("<ColumnHeader />", () => {
     expect(renderedEditableLabel).toHaveProperty("value", mockedChangedValue);
   });
 
-  describe("passed onTitleChange", () => {
+  describe("passed onTitleBlur", () => {
     test("- should be triggered by onBlur", () => {
       // Arrange
       const mockedTitle = "Lorem Ipsum";
-      const mockedOnTitleChange = jest.fn();
+      const mockedOnTitleBlur = jest.fn();
 
-      render(<ColumnHeader title={mockedTitle} onTitleChange={mockedOnTitleChange} />);
+      render(<ColumnHeader title={mockedTitle} onTitleBlur={mockedOnTitleBlur} />);
       const renderedEditableLabel = screen.getByLabelText("editable-label");
 
       // Act
       fireEvent.blur(renderedEditableLabel);
 
       // Assert
-      expect(mockedOnTitleChange).toBeCalled();
+      expect(mockedOnTitleBlur).toBeCalled();
     });
 
     test("- should be triggered by onBlur", () => {
       // Arrange
       const mockedTitle = "Lorem Ipsum";
-      const mockedOnTitleChange = jest.fn();
+      const mockedOnTitleBlur = jest.fn();
 
-      render(<ColumnHeader title={mockedTitle} onTitleChange={mockedOnTitleChange} />);
+      render(<ColumnHeader title={mockedTitle} onTitleBlur={mockedOnTitleBlur} />);
       const renderedEditableLabel = screen.getByLabelText("editable-label");
 
       // Act
       fireEvent.keyDown(renderedEditableLabel, { key: "Enter" });
 
       // Assert
-      expect(mockedOnTitleChange).toBeCalled();
+      expect(mockedOnTitleBlur).toBeCalled();
     });
 
     test("- should be triggered by onBlur", () => {
       // Arrange
       const mockedTitle = "Lorem Ipsum";
-      const mockedOnTitleChange = jest.fn();
+      const mockedOnTitleBlur = jest.fn();
 
-      render(<ColumnHeader title={mockedTitle} onTitleChange={mockedOnTitleChange} />);
+      render(<ColumnHeader title={mockedTitle} onTitleBlur={mockedOnTitleBlur} />);
       const renderedEditableLabel = screen.getByLabelText("editable-label");
 
       // Act
       fireEvent.keyDown(renderedEditableLabel, { key: "Escape" });
 
       // Assert
-      expect(mockedOnTitleChange).toBeCalled();
+      expect(mockedOnTitleBlur).toBeCalled();
     });
   });
 });

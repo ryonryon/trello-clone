@@ -28,7 +28,7 @@ export default function Column({
 }: ColumnProps): JSX.Element {
   const { call } = useMutation<ColumnDefinition>(UPDATE_COLUMN_TITLE(1, column.id), "PATCH");
 
-  const handleTitleChange = async (value: string) => {
+  const handleTitleBlur = async (value: string) => {
     await call({
       variables: { name: value },
     });
@@ -37,7 +37,7 @@ export default function Column({
   return (
     <Root className={className} style={style}>
       <Container>
-        <ColumnHeader title={column.name} onTitleChange={handleTitleChange} />
+        <ColumnHeader title={column.name} onTitleBlur={handleTitleBlur} />
         {draggable ? (
           <DnDColumnBody title={column.name} columnId={column.id} tickets={column.tickets} onEditClick={onEditClick} />
         ) : (
