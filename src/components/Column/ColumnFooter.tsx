@@ -7,11 +7,10 @@ import IconButton from "../IconButton";
 import _EditableTicket from "../EditableTicket";
 
 interface ColumnFooterProps {
-  // This shouldn't be optional but we'll add API later so we can fix then I suppose.
-  onAddTicket?: (value: string) => void;
+  onAddTicket: (value: string) => void;
 }
 
-export function ColumnFooter({ onAddTicket = () => {} }: ColumnFooterProps): JSX.Element {
+export function ColumnFooter({ onAddTicket }: ColumnFooterProps): JSX.Element {
   const [isAddingTicket, setAddingTicket] = useState(false);
   const [editableTicketValue, setEditableTicketValue] = useState("");
 
@@ -19,9 +18,14 @@ export function ColumnFooter({ onAddTicket = () => {} }: ColumnFooterProps): JSX
     setEditableTicketValue(value);
   };
 
-  const handleBlur = (value: string) => {
+  const handleEnterKeyDown = (value: string) => {
     setAddingTicket(false);
     onAddTicket(value);
+    setEditableTicketValue("");
+  };
+
+  const handleBlur = () => {
+    setAddingTicket(false);
     setEditableTicketValue("");
   };
 
@@ -48,6 +52,7 @@ export function ColumnFooter({ onAddTicket = () => {} }: ColumnFooterProps): JSX
             placeholder="Enter a title for this card..."
             value={editableTicketValue}
             onChange={handleEditableTicket}
+            onEnter={handleEnterKeyDown}
             onBlur={handleBlur}
           />
         )}

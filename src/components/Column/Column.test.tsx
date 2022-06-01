@@ -16,10 +16,11 @@ jest.mock("../../hooks/useMutation", () => {
 });
 
 describe("<Column />", () => {
-  test("passed appropriate props - It should render given ticket with title", () => {
+  test("passed appropriate props - it should render given ticket with title", () => {
     // Arrange
+    const mockedColumnId = 1;
     const mockedColumn = {
-      id: 1,
+      id: mockedColumnId,
       name: "mocked column name",
       order: 0,
       tickets: [],
@@ -35,6 +36,36 @@ describe("<Column />", () => {
     fireEvent.blur(renderedEditableLabel);
 
     // Assert
-    expect(mockedUseMutationCall).toBeCalled();
+    expect(mockedUseMutationCall).toBeCalledTimes(1);
+    expect(mockedUseMutationCall).toBeCalledWith({
+      variables: { name: changedMockedValue },
+    });
+  });
+
+  test("passed appropriate props - it should render given ticket with title", () => {
+    // Arrange
+    const mockedColumnId = 2;
+    const mockedColumn = {
+      id: mockedColumnId,
+      name: "mocked column name",
+      order: 0,
+      tickets: [],
+    };
+    const mockedChangedValue = "mocked changed value";
+
+    render(<Column column={mockedColumn} />);
+    const addButton = screen.getByRole("button");
+    fireEvent.click(addButton);
+    const editableTicket = screen.getByLabelText("editable-ticket");
+    fireEvent.change(editableTicket, { target: { value: mockedChangedValue } });
+
+    // Act
+    fireEvent.keyDown(editableTicket, { key: "Enter" });
+
+    // Assert
+    expect(mockedUseMutationCall).toBeCalledTimes(2);
+    expect(mockedUseMutationCall).toBeCalledWith({
+      variables: { name: mockedChangedValue },
+    });
   });
 });

@@ -6,7 +6,11 @@ import EditableTicket from "./EditableTicket";
 export default {
   title: "EditableTicket",
   component: EditableTicket,
-  argTypes: { onBlur: { action: "blured" } },
+  argTypes: {
+    onChange: { action: "input changee]d" },
+    onEnter: { action: "entered" },
+    onBlur: { action: "blured" },
+  },
   args: {
     placeholder: "placeholder",
   },

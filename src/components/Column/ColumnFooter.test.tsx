@@ -2,18 +2,19 @@ import { ColumnFooter } from "./ColumnFooter";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<ColumnFooter />", () => {
-  test("Passed onClick function - it should trigger passed callback upon click", () => {
+  test("Passed onAddTicket function - it should trigger passed function", () => {
     // Arrange
     const mockedCallback = jest.fn();
+    const mockedChangedValue = "mocked changed value";
 
     render(<ColumnFooter onAddTicket={mockedCallback} />);
     const addButton = screen.getByRole("button");
     fireEvent.click(addButton);
-
-    const createTicket = screen.getByLabelText("editable-ticket");
+    const editableTicket = screen.getByLabelText("editable-ticket");
+    fireEvent.change(editableTicket, { target: { value: mockedChangedValue } });
 
     // Act
-    fireEvent.blur(createTicket);
+    fireEvent.keyDown(editableTicket, { key: "Enter" });
 
     // Assert
     expect(mockedCallback).toBeCalled();

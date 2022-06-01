@@ -1,4 +1,4 @@
-import { FormEventHandler, useEffect } from "react";
+import { useEffect } from "react";
 import { CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -8,7 +8,8 @@ export interface EditableTicketProps {
   value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
-  onBlur?: (value: string) => void;
+  onEnter?: (value: string) => void;
+  onBlur?: () => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -17,6 +18,7 @@ export default function EditableTicket({
   value: _value = "",
   placeholder = "",
   onChange = () => {},
+  onEnter = () => {},
   onBlur = () => {},
   className,
   style,
@@ -30,14 +32,21 @@ export default function EditableTicket({
   };
 
   const handleBlur = () => {
-    onBlur(value);
+    setValue("");
+    onBlur();
   };
 
   const handleKeyDown = ({ key }: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (key === "Enter" || key === "Escape") {
+    if (key === "Enter") {
       ref.current?.blur();
+      setValue("");
+      onEnter(value);
+    }
 
-      onBlur(value);
+    if (key === "Escape") {
+      ref.current?.blur();
+      setValue("");
+      onBlur();
     }
   };
 
