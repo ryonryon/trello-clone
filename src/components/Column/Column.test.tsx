@@ -16,7 +16,11 @@ jest.mock("../../hooks/useMutation", () => {
 });
 
 describe("<Column />", () => {
-  test("passed appropriate props - it should render given ticket with title", () => {
+  afterEach(() => {
+    mockedUseMutationCall.mockReset();
+  });
+
+  test("trigger updateColumnTitle - it should trigger call() from useMutation() properly", () => {
     // Arrange
     const mockedColumnId = 1;
     const mockedColumn = {
@@ -36,13 +40,13 @@ describe("<Column />", () => {
     fireEvent.blur(renderedEditableLabel);
 
     // Assert
-    expect(mockedUseMutationCall).toBeCalledTimes(1);
+    expect(mockedUseMutationCall).toBeCalled();
     expect(mockedUseMutationCall).toBeCalledWith({
       variables: { name: changedMockedValue },
     });
   });
 
-  test("passed appropriate props - it should render given ticket with title", () => {
+  test("trigger createTicket - it should trigger call() from useMutation() properly", () => {
     // Arrange
     const mockedColumnId = 2;
     const mockedColumn = {
@@ -63,7 +67,7 @@ describe("<Column />", () => {
     fireEvent.keyDown(editableTicket, { key: "Enter" });
 
     // Assert
-    expect(mockedUseMutationCall).toBeCalledTimes(2);
+    expect(mockedUseMutationCall).toBeCalled();
     expect(mockedUseMutationCall).toBeCalledWith({
       variables: { name: mockedChangedValue },
     });
