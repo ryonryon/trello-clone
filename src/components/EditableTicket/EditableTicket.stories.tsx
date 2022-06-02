@@ -7,9 +7,9 @@ export default {
   title: "EditableTicket",
   component: EditableTicket,
   argTypes: {
-    onChange: { action: "input changee]d" },
+    onChange: { action: "input changed" },
     onEnter: { action: "entered" },
-    onBlur: { action: "blured" },
+    onBlur: { action: "blurred" },
   },
   args: {
     placeholder: "placeholder",
