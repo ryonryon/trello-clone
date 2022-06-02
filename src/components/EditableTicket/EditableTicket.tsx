@@ -7,7 +7,9 @@ import Card from "../Card";
 export interface EditableTicketProps {
   value?: string;
   placeholder?: string;
-  onBlur?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onEnter?: (value: string) => void;
+  onBlur?: () => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -15,6 +17,8 @@ export interface EditableTicketProps {
 export default function EditableTicket({
   value: _value = "",
   placeholder = "",
+  onChange = () => {},
+  onEnter = () => {},
   onBlur = () => {},
   className,
   style,
@@ -24,17 +28,25 @@ export default function EditableTicket({
 
   const handleChange = (event: FormEvent<HTMLTextAreaElement>) => {
     setValue(event.currentTarget.value);
+    onChange(event.currentTarget.value);
   };
 
   const handleBlur = () => {
-    onBlur(value);
+    setValue("");
+    onBlur();
   };
 
   const handleKeyDown = ({ key }: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (key === "Enter" || key === "Escape") {
+    if (key === "Enter") {
       ref.current?.blur();
+      setValue("");
+      onEnter(value);
+    }
 
-      onBlur(value);
+    if (key === "Escape") {
+      ref.current?.blur();
+      setValue("");
+      onBlur();
     }
   };
 

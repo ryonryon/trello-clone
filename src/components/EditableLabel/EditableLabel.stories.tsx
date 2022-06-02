@@ -5,7 +5,7 @@ import EditableLabel from "./EditableLabel";
 export default {
   title: "EditableLabel",
   component: EditableLabel,
-  argTypes: { onBlur: { action: "blured" } },
+  argTypes: { onBlur: { action: "blurred" } },
   args: {
     value: "editable label",
   },

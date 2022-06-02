@@ -1,9 +1,10 @@
 import { CSSProperties } from "react";
 import styled from "styled-components";
 
-import { UPDATE_COLUMN_TITLE } from "../../api";
+import { CREATE_TICKET, UPDATE_COLUMN_TITLE } from "../../api";
 import { useMutation } from "../../hooks/useMutation";
 import ColumnDefinition from "../../interfaces/Column";
+import TicketDefinition from "../../interfaces/Ticket";
 import Card from "../Card";
 import { ColumnHeader } from "./ColumnHeader";
 import { ColumnFooter } from "./ColumnFooter";
@@ -13,23 +14,22 @@ export interface ColumnProps {
   column: ColumnDefinition;
   draggable?: boolean;
   onEditClick?: () => void;
-  onAddTicket?: (value: string) => void;
   className?: string;
   style?: CSSProperties;
 }
 
-export default function Column({
-  column,
-  draggable,
-  onEditClick,
-  onAddTicket,
-  className,
-  style,
-}: ColumnProps): JSX.Element {
-  const { call } = useMutation<ColumnDefinition>(UPDATE_COLUMN_TITLE(1, column.id), "PATCH");
+export default function Column({ column, draggable, onEditClick, className, style }: ColumnProps): JSX.Element {
+  const { call: updateColumnTitle } = useMutation<ColumnDefinition>(UPDATE_COLUMN_TITLE(1, column.id), "PATCH");
+  const { call: createTicket } = useMutation<TicketDefinition>(CREATE_TICKET(1, column.id), "POST");
 
   const handleTitleBlur = async (value: string) => {
-    await call({
+    await updateColumnTitle({
+      variables: { name: value },
+    });
+  };
+
+  const handleAddTicket = async (value: string) => {
+    await createTicket({
       variables: { name: value },
     });
   };
@@ -44,7 +44,7 @@ export default function Column({
           <ColumnBody tickets={column.tickets} onEditClick={onEditClick} />
         )}
 
-        <ColumnFooter onAddTicket={onAddTicket} />
+        <ColumnFooter onAddTicket={handleAddTicket} />
       </Container>
     </Root>
   );
