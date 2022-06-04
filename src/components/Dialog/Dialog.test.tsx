@@ -2,12 +2,12 @@ import Dialog from "./Dialog";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("<Dialog />", () => {
-  describe("Passed open", () => {
+  describe("Passed isOpen", () => {
     test(" - the component IS NOT rendered when it is true", () => {
       // Arrange
       const dialogTestId = "dialog";
 
-      render(<Dialog open={false} />);
+      render(<Dialog isOpen={false} />);
 
       // Assert
       expect(screen.queryByTestId(dialogTestId)).toBeNull();
@@ -17,7 +17,7 @@ describe("<Dialog />", () => {
       // Arrange
       const dialogTestId = "dialog";
 
-      render(<Dialog open={true} />);
+      render(<Dialog isOpen={true} />);
       const renderedDialog = screen.getByTestId(dialogTestId);
 
       // Assert
@@ -30,7 +30,7 @@ describe("<Dialog />", () => {
       // Arrange
       const closeButtonTestId = "icon_button";
 
-      render(<Dialog open={true} disableCloseButton />);
+      render(<Dialog isOpen={true} disableCloseButton />);
 
       // Assert
       expect(screen.queryByTestId(closeButtonTestId)).toBeNull();
@@ -40,7 +40,7 @@ describe("<Dialog />", () => {
       // Arrange
       const closeButtonTestId = "icon_button";
 
-      render(<Dialog open={true} disableCloseButton={false} />);
+      render(<Dialog isOpen={true} disableCloseButton={false} />);
       const renderedCloseButton = screen.getByTestId(closeButtonTestId);
 
       // Assert
@@ -53,7 +53,7 @@ describe("<Dialog />", () => {
     const childComponentTestId = "child_component";
 
     render(
-      <Dialog open={true}>
+      <Dialog isOpen={true}>
         <span data-testid="child_component" />
       </Dialog>,
     );
@@ -69,7 +69,7 @@ describe("<Dialog />", () => {
       const dialogCloseButtonTestId = `icon_button`;
       const mockedCallbackFn = jest.fn();
 
-      render(<Dialog open={true} onClose={mockedCallbackFn} />);
+      render(<Dialog isOpen={true} onClose={mockedCallbackFn} />);
       const closeButton = screen.getByTestId(dialogCloseButtonTestId);
 
       // Act
@@ -84,7 +84,7 @@ describe("<Dialog />", () => {
       const dialogTestId = `dialog`;
       const mockedCallbackFn = jest.fn();
 
-      render(<Dialog open={true} onClose={mockedCallbackFn} />);
+      render(<Dialog isOpen={true} onClose={mockedCallbackFn} />);
       const renderedDialog = screen.getByTestId(dialogTestId);
 
       // Act

@@ -10,7 +10,7 @@ export default {
   component: Dialog,
   argTypes: { onClose: { action: "clicked" } },
   args: {
-    open: true,
+    isOpen: true,
   },
 } as ComponentMeta<typeof Dialog>;
 

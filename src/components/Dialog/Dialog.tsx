@@ -4,7 +4,7 @@ import styled from "styled-components";
 import _IconButton from "../IconButton";
 
 interface DialogProps {
-  open: boolean;
+  isOpen: boolean;
   disableCloseButton?: boolean;
   onClose?: () => void;
   children?: React.ReactNode;
@@ -13,7 +13,7 @@ interface DialogProps {
 }
 
 export default function Dialog({
-  open,
+  isOpen,
   disableCloseButton = false,
   onClose = () => {},
   children,
@@ -27,7 +27,7 @@ export default function Dialog({
 
   return (
     <>
-      {open && (
+      {isOpen && (
         <Root data-testid="dialog" onKeyDown={handleKeyDown}>
           {!disableCloseButton && (
             <IconButton onClick={onClose}>
@@ -35,7 +35,9 @@ export default function Dialog({
             </IconButton>
           )}
 
-          <Container {...props}>{children}</Container>
+          <Container>
+            <Content {...props}>{children}</Content>
+          </Container>
         </Root>
       )}
     </>
@@ -53,8 +55,27 @@ const Root = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: #0009;
+  background-color: #000000a3;
   z-index: 10;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  juestify-content: center;
+
+  & > div {
+    margin-bottom: 16px;
+  }
+
+  & > div:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const IconButton = styled(_IconButton)`
@@ -72,15 +93,4 @@ const IconButton = styled(_IconButton)`
   }
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  & > div {
-    margin-bottom: 16px;
-  }
-
-  & > div:last-child {
-    margin-bottom: 0;
-  }
-`;
+const Content = styled.div``;

@@ -18,7 +18,7 @@ describe("<Project />", () => {
     // Assert
     // project title
     expect(allColumnLabels[0]).toHaveProperty("value", projectTitle);
-    // project's star icon
+    // project's buttons
     expect(screen.getByText("Board")).toBeTruthy();
     expect(screen.getByTestId("starButton")).toBeTruthy();
     expect(screen.getByText("test")).toBeTruthy();
