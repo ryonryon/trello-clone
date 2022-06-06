@@ -2,7 +2,10 @@ import { useState, createContext } from "react";
 import styled from "styled-components";
 import { DragDropContext, Draggable, DraggableLocation, DragStart, Droppable, DropResult } from "react-beautiful-dnd";
 
+import { ProjectReducerContext } from "../../context/project";
 import { moveItemToAnotherList, reorderSameListItems } from "../../utils/dragAndDrop";
+import { useTypeSafeContext } from "../../hooks/useTypeSafeContext";
+import { updatedColumn } from "../../store/project";
 
 import ColumnDefinition from "../../interfaces/Column";
 import Column from "../Column";
@@ -28,7 +31,7 @@ interface DnDColumnListProps {
  * @param projectColumns - current focused project's list of column
  */
 export default function DnDColumnList({ projectColumns }: DnDColumnListProps): JSX.Element {
-  const [columns, setColumns] = useState<ColumnDefinition[]>(projectColumns);
+  const dispatch = useTypeSafeContext(ProjectReducerContext);
   /** this state is passed via context to disable droppable on ticket area when column is dragged */
   const [grabbedItem, setGrabbedItem] = useState<GrabbedItemCategory | null>(null);
 
@@ -54,7 +57,7 @@ export default function DnDColumnList({ projectColumns }: DnDColumnListProps): J
       return;
     }
 
-    const reorderedColumns = reorderSameListItems(columns, source.index, destination.index);
+    const reorderedColumns = reorderSameListItems(projectColumns, source.index, destination.index);
     setNewColumns(reorderedColumns);
   };
 
@@ -65,33 +68,33 @@ export default function DnDColumnList({ projectColumns }: DnDColumnListProps): J
     destination: DraggableLocation;
     source: DraggableLocation;
   }) => {
-    const sourceDroppableElementIdx = columns.findIndex((column) => column.id === Number(source.droppableId));
-    const destinationDroppableElementIdx = columns.findIndex(
+    const sourceDroppableElementIdx = projectColumns.findIndex((column) => column.id === Number(source.droppableId));
+    const destinationDroppableElementIdx = projectColumns.findIndex(
       (column) => column.id === Number(destination?.droppableId),
     );
     const isDroppedOnSameColumn = source.droppableId === destination?.droppableId;
 
     if (isDroppedOnSameColumn) {
-      const targedColumn = columns[sourceDroppableElementIdx];
+      const targedColumn = projectColumns[sourceDroppableElementIdx];
       const reorderedTickets = reorderSameListItems(targedColumn.tickets, source.index, destination.index);
 
-      const newColumns = [...columns];
+      const newColumns = [...projectColumns];
       newColumns[sourceDroppableElementIdx].tickets = reorderedTickets;
 
       setNewColumns(newColumns);
       return;
     }
 
-    // When dropped on another columns
-    const sourceColumn = columns[sourceDroppableElementIdx].tickets;
-    const destinationColumn = columns[destinationDroppableElementIdx].tickets;
+    // When dropped on another projectColumns
+    const sourceColumn = projectColumns[sourceDroppableElementIdx].tickets;
+    const destinationColumn = projectColumns[destinationDroppableElementIdx].tickets;
     const { resultSource, resultDestination } = moveItemToAnotherList(
       sourceColumn,
       destinationColumn,
       source.index,
       destination.index,
     );
-    const newColumns = [...columns];
+    const newColumns = [...projectColumns];
     newColumns[sourceDroppableElementIdx].tickets = resultSource;
     newColumns[destinationDroppableElementIdx].tickets = resultDestination;
     setNewColumns(newColumns);
@@ -99,7 +102,7 @@ export default function DnDColumnList({ projectColumns }: DnDColumnListProps): J
 
   const setNewColumns = (newColumns: ColumnDefinition[]) => {
     setGrabbedItem(null);
-    setColumns(newColumns);
+    dispatch(updatedColumn(newColumns));
   };
 
   return (
@@ -117,7 +120,7 @@ export default function DnDColumnList({ projectColumns }: DnDColumnListProps): J
               {...provided.droppableProps}
               data-testid={`columListContainer`}
             >
-              {columns.map((column, index) => (
+              {projectColumns.map((column, index) => (
                 <Draggable key={column.id} draggableId={`column_${column.id}`} index={index}>
                   {(provided) => (
                     <ColumnListContainer

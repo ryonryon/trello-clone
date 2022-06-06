@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
+import { useEffect, CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
 import Card from "../Card";

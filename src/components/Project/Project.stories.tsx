@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
+import { TestRendererWithContext } from "../../utils/testRendererWithContext";
 
-import { MOCKED_PROJECT } from "./constants";
 import Project from "./Project";
 
 export default {
@@ -8,10 +8,25 @@ export default {
   component: Project,
 };
 
-const Template: ComponentStory<typeof Project> = (args) => <Project {...args} />;
+// mock up fetch() to prevent storybook to crash because of node's version incompatibility
+global.fetch = () =>
+  Promise.resolve({
+    json: () =>
+      Promise.resolve({
+        status: 200,
+        body: {
+          id: 1,
+          name: "test",
+          sort: 1,
+          project: {},
+        },
+      }),
+  }) as unknown as Promise<Response>;
+
+const Template: ComponentStory<typeof Project> = () => (
+  <TestRendererWithContext>
+    <Project />
+  </TestRendererWithContext>
+);
 
 export const Basic = Template.bind({});
-
-Basic.args = {
-  project: MOCKED_PROJECT,
-};

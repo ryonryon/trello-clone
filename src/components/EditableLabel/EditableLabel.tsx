@@ -1,9 +1,11 @@
-import { CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
+import { useEffect, CSSProperties, FormEvent, KeyboardEvent, useRef, useState } from "react";
 import styled from "styled-components";
 
 export interface RootBodyProps {
   value?: string;
+  placeholder?: string;
   onBlur?: (value: string) => void;
+  onChange?: (inputStr: string) => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -11,13 +13,19 @@ export interface RootBodyProps {
 export default function EditableLabel({
   value: initValue = "",
   onBlur = () => {},
+  onChange = () => {},
   ...props
 }: RootBodyProps): JSX.Element {
   const [value, setValue] = useState<string>(initValue);
   const ref = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    setValue(initValue);
+  }, [initValue]);
+
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
+    onChange(e.currentTarget.value);
   };
 
   const handleBlur = () => {

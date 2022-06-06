@@ -1,8 +1,11 @@
+import { useEffect, useReducer } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import ProjectDefinition from "./interfaces/Project";
+import projectReducer from "./store";
 import { GET_PROJECT_BY_ID } from "./api";
 import { useFetch } from "./hooks/useFetch";
+import { ProjectContext, ProjectReducerContext } from "./context/project";
+import ProjectDefinition from "./interfaces/Project";
 
 import LoadingSpinner from "./components/LoadingSpinner";
 import Project from "./components/Project";
@@ -16,17 +19,27 @@ body {
 `;
 
 export default function App(): JSX.Element {
-  const { data: project, isLoading } = useFetch<ProjectDefinition>(GET_PROJECT_BY_ID(1));
+  const { data: projectResponse, isLoading } = useFetch<ProjectDefinition>(GET_PROJECT_BY_ID(1));
+  const [project, dispatch] = useReducer(projectReducer.reducer, projectReducer.initialState);
+
+  useEffect(() => {
+    // once project has been fetched, it updates project which is used in the app as "state"
+    projectResponse && dispatch(projectReducer.updatedProject(projectResponse));
+  }, [projectResponse]);
 
   return (
     <Body>
       <GlobalStyle />
-      {isLoading || !project ? (
+      {isLoading ? (
         <Container>
           <LoadingSpinner size="M" />
         </Container>
       ) : (
-        <Project project={project} />
+        <ProjectReducerContext.Provider value={dispatch}>
+          <ProjectContext.Provider value={project}>
+            <Project />
+          </ProjectContext.Provider>
+        </ProjectReducerContext.Provider>
       )}
     </Body>
   );
