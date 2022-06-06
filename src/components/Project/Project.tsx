@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FilterList, FlashOn, GroupAdd, MoreHoriz, People, StarBorder, TableChart, Add } from "@material-ui/icons";
+import { FilterList, FlashOn, GroupAdd, MoreHoriz, People, StarBorder, TableChart } from "@material-ui/icons";
 
 import ProjectDefinition from "../../interfaces/Project";
 import { UPDATE_PROJECT_TITLE } from "../../api";
@@ -11,6 +11,7 @@ import _Button from "../Button";
 import IconButton from "../IconButton";
 import EditableLabel from "../EditableLabel";
 import DnDColumnList from "./DnDColumnList";
+import AdditionColumn from "../AdditionColumn";
 
 export default function Project(): JSX.Element {
   const project = useTypeSafeContext(ProjectContext);
@@ -47,8 +48,7 @@ export default function Project(): JSX.Element {
 
         <Panels>
           <DnDColumnList projectColumns={project.columns} />
-
-          <AnotherListButton title="Add another list" icon={<Add />} textLeft />
+          <AdditionColumn />
         </Panels>
       </Container>
     </Root>
