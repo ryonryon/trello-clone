@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
 
+import { TestRendererWithContext } from "../../utils/testRendererWithContext";
 import AdditionColumn from "./AdditionColumn";
 
 import "jest-styled-components";
