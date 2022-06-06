@@ -13,7 +13,7 @@ export interface RootBodyProps {
 export default function EditableLabel({
   value: initValue = "",
   onBlur = () => {},
-  onChange,
+  onChange = () => {},
   ...props
 }: RootBodyProps): JSX.Element {
   const [value, setValue] = useState<string>(initValue);
@@ -25,7 +25,7 @@ export default function EditableLabel({
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
-    onChange && onChange(e.currentTarget.value);
+    onChange(e.currentTarget.value);
   };
 
   const handleBlur = () => {
