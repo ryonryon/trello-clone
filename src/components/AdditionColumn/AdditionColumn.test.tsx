@@ -14,13 +14,13 @@ beforeEach(() => {
 });
 
 describe("<AdditionColumn />", () => {
-  it("Default render - It should render closed state of the component", () => {
+  test("Default render - It should render closed state of the component", () => {
     const closedColumnText = "Add another list";
 
     expect(screen.getByText(closedColumnText)).toBeTruthy();
   });
 
-  it("Press on the column - It should expand the component and show more items", async () => {
+  test("Press on the column - It should expand the component and show more items", async () => {
     const closedColumnText = "Add another list";
     const addButtonText = "Add card";
     const editableTitlePlacehold = "Enter list title...";
@@ -39,7 +39,7 @@ describe("<AdditionColumn />", () => {
     expect(screen.getByPlaceholderText(editableTitlePlacehold)).toBeTruthy();
   });
 
-  it("Press on the close button - It should collapse the component and get back to deafult state", async () => {
+  test("Press on the close button - It should collapse the component and get back to deafult state", async () => {
     const closedColumnText = "Add another list";
     const addButtonText = "Add card";
     const editableTitlePlacehold = "Enter list title...";
@@ -63,7 +63,7 @@ describe("<AdditionColumn />", () => {
     expect(screen.getByTestId("AdditionColumn_expandableContainer")).toHaveStyleRule("opacity: 0");
   });
 
-  it("Press on the `Add card` button - It should collapse the component and get back to deafult state", async () => {
+  test("Press on the `Add card` button - It should collapse the component and get back to deafult state", async () => {
     const closedColumnText = "Add another list";
     const addButtonText = "Add card";
     const editableTitlePlacehold = "Enter list title...";
