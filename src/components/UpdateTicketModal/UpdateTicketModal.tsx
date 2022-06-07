@@ -24,10 +24,13 @@ import { FormEvent, useState } from "react";
 import styled from "styled-components";
 
 import TicketDefenition from "../../interfaces/Ticket";
+import Avatar from "../Avatar";
+import { AvatarSize } from "../Avatar/Avatar";
 import _Button from "../Button";
 import _Card from "../Card";
 import Dialog from "../Dialog";
 import EditableLabel from "../EditableLabel";
+import _EditableTicket from "../EditableTicket";
 import IconButton from "../IconButton";
 
 export interface UpdateTicketModalProps {
@@ -94,6 +97,14 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
 
                   <Button title={"Show details"} />
                 </ParagraphTitle>
+
+                <Comments>
+                  <Comment>
+                    <Avatar alt="Togashi Ryo" size={AvatarSize.S} />
+
+                    <EditableTicket placeholder="Write a comment..." />
+                  </Comment>
+                </Comments>
               </Paragraph>
             </Main>
 
@@ -201,6 +212,24 @@ const MainTitle = styled.h2`
   flex-grow: 10;
   margin: 16px 0;
   font-size: 16px;
+`;
+
+const Comments = styled.div``;
+
+const Comment = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+
+  & > * {
+    margin-right: 16px;
+  }
+`;
+
+const EditableTicket = styled(_EditableTicket)`
+  flex-grow: 1;
+  height: 40px;
 `;
 
 const DescriptionForm = styled.div`
