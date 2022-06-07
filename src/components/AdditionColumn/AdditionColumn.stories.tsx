@@ -1,11 +1,11 @@
 import { ComponentStory } from "@storybook/react";
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
 
-import Project from "./Project";
+import { TestRendererWithContext } from "../../utils/testRendererWithContext";
+import AdditionColumn from ".";
 
 export default {
-  title: "Project",
-  component: Project,
+  title: "AdditionColumn",
+  component: AdditionColumn,
 };
 
 // mock up fetch() to prevent storybook to crash because of node's version incompatibility
@@ -23,9 +23,9 @@ global.fetch = () =>
       }),
   }) as unknown as Promise<Response>;
 
-const Template: ComponentStory<typeof Project> = () => (
+const Template: ComponentStory<typeof AdditionColumn> = () => (
   <TestRendererWithContext>
-    <Project />
+    <AdditionColumn />
   </TestRendererWithContext>
 );
 

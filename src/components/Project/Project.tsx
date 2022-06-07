@@ -1,19 +1,20 @@
 import styled from "styled-components";
-import { Add, FilterList, FlashOn, GroupAdd, MoreHoriz, People, StarBorder, TableChart } from "@material-ui/icons";
+import { FilterList, FlashOn, GroupAdd, MoreHoriz, People, StarBorder, TableChart } from "@material-ui/icons";
 
+import ProjectDefinition from "../../interfaces/Project";
 import { UPDATE_PROJECT_TITLE } from "../../api";
 import { useMutation } from "../../hooks/useMutation";
-import ProjectDefinition from "../../interfaces/Project";
+import { useTypeSafeContext } from "../../hooks/useTypeSafeContext";
+import { ProjectContext } from "../../context/project";
+
 import _Button from "../Button";
 import IconButton from "../IconButton";
 import EditableLabel from "../EditableLabel";
 import DnDColumnList from "./DnDColumnList";
+import AdditionColumn from "../AdditionColumn";
 
-export interface Props {
-  project: ProjectDefinition;
-}
-
-export default function Project({ project }: Props): JSX.Element {
+export default function Project(): JSX.Element {
+  const project = useTypeSafeContext(ProjectContext);
   const { call } = useMutation<ProjectDefinition>(UPDATE_PROJECT_TITLE(project.id), "PUT");
 
   const handleBlur = async (value: string) => {
@@ -28,35 +29,26 @@ export default function Project({ project }: Props): JSX.Element {
         <Header>
           <HeaderLeft>
             <Button title="Board" icon={<TableChart />} data-testid="boardButton" />
-
             <EditableTitle value={project.name} onBlur={handleBlur} />
-
             <StarButton data-testid="starButton">
               <StarBorder />
             </StarButton>
-
             <Button title="test" data-testid="testButton" />
-
             <Button title="Workspace visible" icon={<People />} data-testid="workSpaceButton" />
-
             <ShareButton title="Share" icon={<GroupAdd />} data-testid="shareButton" />
           </HeaderLeft>
 
           <HeaderRight>
             <Button title="Power-Ups" data-testid="powerUpsButton" />
-
             <Button title="Automation" icon={<FlashOn />} data-testid="automationButton" />
-
             <Button title="Filter" icon={<FilterList />} data-testid="filterButton" />
-
             <Button title="Show manu" icon={<MoreHoriz />} data-testid="showMenuButton" />
           </HeaderRight>
         </Header>
 
         <Panels>
           <DnDColumnList projectColumns={project.columns} />
-
-          <AnotherListButton title="Add another list" icon={<Add />} textLeft />
+          <AdditionColumn />
         </Panels>
       </Container>
     </Root>

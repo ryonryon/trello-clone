@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-
 import { MOCKED_PROJECT } from "./constants";
+
+import { TestRendererWithContext } from "../../utils/testRendererWithContext";
 import Project from "./Project";
 
 describe("<Project />", () => {
@@ -11,7 +12,7 @@ describe("<Project />", () => {
     const secondColumnTitle = MOCKED_PROJECT.columns[1].name;
     const thirdColumnTitle = MOCKED_PROJECT.columns[2].name;
 
-    render(<Project project={MOCKED_PROJECT} />);
+    render(<Project />, { wrapper: TestRendererWithContext });
 
     const allColumnLabels = screen.getAllByLabelText("editable-label");
 
