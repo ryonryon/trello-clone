@@ -100,7 +100,11 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
 
                 <Comments>
                   <Comment>
-                    <Avatar alt="Togashi Ryo" size={AvatarSize.S} />
+                    <Avatar
+                      alt="Ryo Togashi"
+                      src="https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
+                      size={AvatarSize.S}
+                    />
 
                     <EditableTicket placeholder="Write a comment..." />
                   </Comment>
