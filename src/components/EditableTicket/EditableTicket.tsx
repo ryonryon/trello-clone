@@ -94,10 +94,8 @@ const Textarea = styled.textarea`
   border: none;
   background-color: inherit;
   padding-left: 4px;
-  min-height: 24px;
   font-size: 16px;
   width: 100%;
-  min-height: 80px;
   resize: none;
   font-family: inherited;
 

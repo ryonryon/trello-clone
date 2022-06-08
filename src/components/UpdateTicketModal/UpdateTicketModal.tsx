@@ -101,7 +101,7 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
                 <Comments>
                   <Comment>
                     <Avatar
-                      alt="Ryo Togashi"
+                      alt="Mr Pug"
                       src="https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
                       size={AvatarSize.S}
                     />
@@ -172,7 +172,7 @@ const Headline = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 32px 24px 16px;
+  margin: 0 32px 24px 0;
 
   & > svg {
     margin-right: 16px;
@@ -208,6 +208,7 @@ const ParagraphTitle = styled.div`
   margin-top: 24px;
 
   & > svg {
+    margin-left: 4px;
     margin-right: 16px;
   }
 `;
@@ -226,8 +227,8 @@ const Comment = styled.div`
   justify-content: center;
   margin-top: 24px;
 
-  & > * {
-    margin-right: 16px;
+  & > *:first-child {
+    margin-right: 8px;
   }
 `;
 
