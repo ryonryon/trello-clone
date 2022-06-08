@@ -1,5 +1,7 @@
 <h1 align="center">Trello clone build with React, Fastify, and TypeORM</h1>
 
+![Alt Text](./public/trello-clone-demo.gif)
+
 ## Features
 
 - Scalable and easy to understand project
