@@ -81,7 +81,7 @@ describe("<UpdateTicketModal />", () => {
     });
   });
 
-  test("Passed ticket - it should render all given needed info", () => {
+  test("Passed ticket - it should render all given needed info", async () => {
     // Arrange
     const mockedTicket = {
       id: 9999,
@@ -92,10 +92,19 @@ describe("<UpdateTicketModal />", () => {
 
     render(<UpdateTicketModal isOpen={true} ticket={mockedTicket} />);
 
-    const allColumnLabels = screen.getAllByLabelText("editable-label");
+    const renderedEditableLabel = screen.getByLabelText("editable-label");
+    const renderedAvatar = await screen.findByAltText<HTMLImageElement>("Mr Pug");
 
     // Assert
-    expect(allColumnLabels[0]).toHaveProperty("value", mockedTicket.name);
+
+    // title
+    expect(renderedEditableLabel).toHaveProperty("value", mockedTicket.name);
+
+    // icons
+
+    // Avatar
+    expect(renderedAvatar).toBeTruthy();
+
     // UpdateTicketModel's buttons
     expect(screen.getByText("Members")).toBeTruthy();
     expect(screen.getByText("Labels")).toBeTruthy();

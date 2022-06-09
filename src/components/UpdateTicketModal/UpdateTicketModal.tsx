@@ -24,8 +24,7 @@ import { FormEvent, useState } from "react";
 import styled from "styled-components";
 
 import TicketDefenition from "../../interfaces/Ticket";
-import Avatar from "../Avatar";
-import { AvatarSize } from "../Avatar/Avatar";
+import Avatar, { AvatarSize } from "../Avatar";
 import _Button from "../Button";
 import _Card from "../Card";
 import Dialog from "../Dialog";

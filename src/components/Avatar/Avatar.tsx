@@ -14,7 +14,7 @@ export interface AvatarProps {
 
 export default function Avatar({ alt, src, size = AvatarSize.M }: AvatarProps) {
   return (
-    <Root size={size}>
+    <Root size={size} data-testid="avatar">
       {alt && !src && <Square>{alt.charAt(0)}</Square>}
       {src && <Image alt={alt} src={src} />}
     </Root>
