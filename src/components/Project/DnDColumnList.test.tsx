@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
+import { TestRendererWithProjectContext } from "../../utils/testRendererWithContext";
 import { MOCKED_PROJECT } from "./constants";
 import DnDColumnList from "./DnDColumnList";
 
@@ -11,7 +11,7 @@ describe("<DnDColumnList />", () => {
     const secondColumnTitle = MOCKED_PROJECT.columns[1].name;
     const thirdColumnTitle = MOCKED_PROJECT.columns[2].name;
 
-    render(<DnDColumnList projectColumns={MOCKED_PROJECT.columns} />, { wrapper: TestRendererWithContext });
+    render(<DnDColumnList projectColumns={MOCKED_PROJECT.columns} />, { wrapper: TestRendererWithProjectContext });
 
     const allColumnLabels = screen.getAllByLabelText("editable-label");
 

@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
 
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
+import { TestRendererWithProjectContext } from "../../utils/testRendererWithContext";
 import AdditionColumn from ".";
 
 export default {
@@ -24,9 +24,9 @@ global.fetch = () =>
   }) as unknown as Promise<Response>;
 
 const Template: ComponentStory<typeof AdditionColumn> = () => (
-  <TestRendererWithContext>
+  <TestRendererWithProjectContext>
     <AdditionColumn />
-  </TestRendererWithContext>
+  </TestRendererWithProjectContext>
 );
 
 export const Basic = Template.bind({});

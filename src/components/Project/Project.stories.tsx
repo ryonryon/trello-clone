@@ -1,5 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
+import { TestRendererWithProjectContext } from "../../utils/testRendererWithContext";
 
 import Project from "./Project";
 
@@ -24,9 +24,9 @@ global.fetch = () =>
   }) as unknown as Promise<Response>;
 
 const Template: ComponentStory<typeof Project> = () => (
-  <TestRendererWithContext>
+  <TestRendererWithProjectContext>
     <Project />
-  </TestRendererWithContext>
+  </TestRendererWithProjectContext>
 );
 
 export const Basic = Template.bind({});
