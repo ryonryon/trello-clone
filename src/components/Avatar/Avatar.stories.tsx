@@ -15,7 +15,15 @@ export default {
 
 const Template: ComponentStory<typeof Avatar> = (args) => (
   <BackGround>
-    <Avatar {...args} />
+    <Container>
+      <Avatar {...args} size="S" />
+    </Container>
+    <Container>
+      <Avatar {...args} size="M" />
+    </Container>
+    <Container>
+      <Avatar {...args} size="L" />
+    </Container>
   </BackGround>
 );
 
@@ -33,4 +41,9 @@ const BackGround = styled.div`
   height: 95vh;
   background-color: #ffffff;
   padding: 50px;
+`;
+
+const Container = styled.div`
+  padding: 15px;
+  align-self: center;
 `;
