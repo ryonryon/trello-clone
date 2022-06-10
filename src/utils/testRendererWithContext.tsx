@@ -18,7 +18,7 @@ export function TestRendererWithProjectContext({ children }: { children: JSX.Ele
 }
 
 /**
- * A test renderer to pass mocked project via context. Use this component if your component grabs value from context
+ * A test renderer to pass mocked project and onTicketClick via context. Use this component if your component grabs value from context
  */
 export function TestRendererWithProjectAndOnTicketClickContext({
   children,
