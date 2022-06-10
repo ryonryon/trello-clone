@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { FilterList, FlashOn, GroupAdd, MoreHoriz, People, StarBorder, TableChart } from "@material-ui/icons";
 
@@ -6,14 +7,18 @@ import { UPDATE_PROJECT_TITLE } from "../../api";
 import { useMutation } from "../../hooks/useMutation";
 import { useTypeSafeContext } from "../../hooks/useTypeSafeContext";
 import { ProjectContext } from "../../context/project";
+import { OnTicketClickContext } from "../../context/ticket";
 
-import _Button from "../Button";
-import IconButton from "../IconButton";
-import EditableLabel from "../EditableLabel";
-import DnDColumnList from "./DnDColumnList";
 import AdditionColumn from "../AdditionColumn";
+import _Button from "../Button";
+import EditableLabel from "../EditableLabel";
+import IconButton from "../IconButton";
+import TicketDetailModal from "../TicketDetailModal";
+import DnDColumnList from "./DnDColumnList";
 
 export default function Project(): JSX.Element {
+  const [updatingTicketId, setUpdatingTicketId] = useState<number | null>(null);
+
   const project = useTypeSafeContext(ProjectContext);
   const { call } = useMutation<ProjectDefinition>(UPDATE_PROJECT_TITLE(project.id), "PUT");
 
@@ -21,6 +26,14 @@ export default function Project(): JSX.Element {
     await call({
       variables: { name: value },
     });
+  };
+
+  const handleTicketClick = (ticketId: number) => {
+    setUpdatingTicketId(ticketId);
+  };
+
+  const handleTicketDetailModalClose = () => {
+    setUpdatingTicketId(null);
   };
 
   return (
@@ -47,10 +60,18 @@ export default function Project(): JSX.Element {
         </Header>
 
         <Panels>
-          <DnDColumnList projectColumns={project.columns} />
+          <OnTicketClickContext.Provider value={{ onTicketClick: handleTicketClick }}>
+            <DnDColumnList projectColumns={project.columns} />
+          </OnTicketClickContext.Provider>
           <AdditionColumn />
         </Panels>
       </Container>
+
+      <TicketDetailModal
+        isOpen={Boolean(updatingTicketId)}
+        ticketId={updatingTicketId}
+        onClose={handleTicketDetailModalClose}
+      />
     </Root>
   );
 }

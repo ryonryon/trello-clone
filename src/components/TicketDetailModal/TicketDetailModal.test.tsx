@@ -1,19 +1,34 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import UpdateTicketModal from "./UpdateTicketModal";
+import { TestRendererWithProjectContext } from "../../utils/testRendererWithContext";
+import TicketDetailModal from "./TicketDetailModal";
 
-describe("<UpdateTicketModal />", () => {
+const mockedName = "mocked ticket name";
+const mockedDescription = "mocked ticket description";
+
+jest.mock("../../hooks/useFetch", () => {
+  return {
+    __esModule: true,
+    useFetch: jest.fn(() => {
+      return {
+        data: {
+          name: mockedName,
+          description: mockedDescription,
+        },
+      };
+    }),
+  };
+});
+
+describe("<TicketDetailModal />", () => {
   describe("Passed isOpen", () => {
     test(" - the component IS NOT rendered when it is true", () => {
       // Arrange
       const dialogTestId = "dialog";
-      const mockedTicket = {
-        id: 9999,
-        name: "mocked ticket name",
-        description: "mocked ticket description",
-        order: 0,
-      };
+      const mockedTicketId = 9999;
 
-      render(<UpdateTicketModal isOpen={false} ticket={mockedTicket} />);
+      render(<TicketDetailModal isOpen={false} ticketId={mockedTicketId} />, {
+        wrapper: TestRendererWithProjectContext,
+      });
 
       // Assert
       expect(screen.queryByTestId(dialogTestId)).toBeNull();
@@ -21,15 +36,12 @@ describe("<UpdateTicketModal />", () => {
 
     test(" - the component is rendered when it is true", () => {
       // Arrange
-      const mockedTicket = {
-        id: 9999,
-        name: "mocked ticket name",
-        description: "mocked ticket description",
-        order: 0,
-      };
+      const mockedTicketId = 9999;
       const dialogTestId = "dialog";
 
-      render(<UpdateTicketModal isOpen={true} ticket={mockedTicket} />);
+      render(<TicketDetailModal isOpen={true} ticketId={mockedTicketId} />, {
+        wrapper: TestRendererWithProjectContext,
+      });
       const renderedDialog = screen.getByTestId(dialogTestId);
 
       // Assert
@@ -41,15 +53,12 @@ describe("<UpdateTicketModal />", () => {
     test("- clicking close button trigger onClose", () => {
       // Arrange
       const modalCloseButtonTestId = `icon_button`;
-      const mockedTicket = {
-        id: 9999,
-        name: "mocked ticket name",
-        description: "mocked ticket description",
-        order: 0,
-      };
+      const mockedTicketId = 9999;
       const mockedCallbackFn = jest.fn();
 
-      render(<UpdateTicketModal isOpen={true} ticket={mockedTicket} onClose={mockedCallbackFn} />);
+      render(<TicketDetailModal isOpen={true} ticketId={mockedTicketId} onClose={mockedCallbackFn} />, {
+        wrapper: TestRendererWithProjectContext,
+      });
       const closeButton = screen.getByTestId(modalCloseButtonTestId);
 
       // Act
@@ -62,15 +71,12 @@ describe("<UpdateTicketModal />", () => {
     test("- key down esc key trigger onClose", () => {
       // Arrange
       const modalCloseButtonTestId = `dialog`;
-      const mockedTicket = {
-        id: 9999,
-        name: "mocked ticket name",
-        description: "mocked ticket description",
-        order: 0,
-      };
+      const mockedTicketId = 9999;
       const mockedCallbackFn = jest.fn();
 
-      render(<UpdateTicketModal isOpen={true} ticket={mockedTicket} onClose={mockedCallbackFn} />);
+      render(<TicketDetailModal isOpen={true} ticketId={mockedTicketId} onClose={mockedCallbackFn} />, {
+        wrapper: TestRendererWithProjectContext,
+      });
       const renderedModal = screen.getByTestId(modalCloseButtonTestId);
 
       // Act
@@ -81,26 +87,18 @@ describe("<UpdateTicketModal />", () => {
     });
   });
 
-  test("Passed ticket - it should render all given needed info", async () => {
+  test("Passed ticketId - it should render all given needed info", async () => {
     // Arrange
-    const mockedTicket = {
-      id: 9999,
-      name: "mocked ticket name",
-      description: "mocked ticket description",
-      order: 0,
-    };
+    const mockedTicketId = 9999;
 
-    render(<UpdateTicketModal isOpen={true} ticket={mockedTicket} />);
+    render(<TicketDetailModal isOpen={true} ticketId={mockedTicketId} />, { wrapper: TestRendererWithProjectContext });
 
     const renderedEditableLabel = screen.getByLabelText("editable-label");
     const renderedAvatar = await screen.findByAltText<HTMLImageElement>("Mr Pug");
 
     // Assert
-
     // title
-    expect(renderedEditableLabel).toHaveProperty("value", mockedTicket.name);
-
-    // icons
+    expect(renderedEditableLabel).toHaveProperty("value", mockedName);
 
     // Avatar
     expect(renderedAvatar).toBeTruthy();

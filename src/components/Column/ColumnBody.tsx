@@ -1,7 +1,9 @@
 import { useContext } from "react";
-import styled, { CSSProperties } from "styled-components";
+import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
 
+import { OnTicketClickContext } from "../../context/ticket";
+import { useTypeSafeContext } from "../../hooks/useTypeSafeContext";
 import TicketDefinition from "../../interfaces/Ticket";
 import { GrabbedItemContext, GRABBED_ITEM_CATEGORY } from "../Project/DnDColumnList";
 import { DraggableTicket, Ticket } from "../Ticket/Ticket";
@@ -29,6 +31,7 @@ export function ColumnBody({ tickets, onEditClick }: ColumnBodyProps): JSX.Eleme
 
 export function DnDColumnBody({ title, columnId, tickets, onEditClick }: DnDColumnBodyProps): JSX.Element {
   const grabbedItemContext = useContext(GrabbedItemContext);
+  const { onTicketClick } = useTypeSafeContext(OnTicketClickContext);
 
   return (
     // this droppable area should be disabled when gragged item is column
@@ -41,6 +44,7 @@ export function DnDColumnBody({ title, columnId, tickets, onEditClick }: DnDColu
               id={item.id}
               title={item.name}
               index={i}
+              onClick={() => onTicketClick(item.id)}
               onEditClick={onEditClick}
             />
           ))}

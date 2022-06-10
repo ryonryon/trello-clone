@@ -20,11 +20,14 @@ import {
   Visibility,
   WorkOutline,
 } from "@material-ui/icons";
-import { FormEvent, useState } from "react";
 import styled from "styled-components";
 
+import { GET_TICKET_BY_ID } from "../../api/tickets";
+import { ProjectContext } from "../../context/project";
+import { useFetch } from "../../hooks/useFetch";
+import { useTypeSafeContext } from "../../hooks/useTypeSafeContext";
 import TicketDefenition from "../../interfaces/Ticket";
-import Avatar, { AvatarSize } from "../Avatar";
+import Avatar from "../Avatar";
 import _Button from "../Button";
 import _Card from "../Card";
 import Dialog from "../Dialog";
@@ -32,22 +35,15 @@ import EditableLabel from "../EditableLabel";
 import _EditableTicket from "../EditableTicket";
 import IconButton from "../IconButton";
 
-export interface UpdateTicketModalProps {
+export interface TicketDetailModalProps {
   isOpen: boolean;
-  ticket: Partial<TicketDefenition>;
+  ticketId: number | null;
   onClose?: () => void;
 }
 
-export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTicketModalProps): JSX.Element {
-  const [updatingTicket, setUpdatingTicket] = useState(ticket);
-
-  const handleTitleBlur = (name: string) => {
-    setUpdatingTicket((prev) => ({ ...prev, name }));
-  };
-
-  const handleDescriptionChange = (event: FormEvent<HTMLTextAreaElement>) => {
-    setUpdatingTicket((prev) => ({ ...prev, description: event.currentTarget.value }));
-  };
+export default function TicketDetailModal({ isOpen, ticketId, onClose }: TicketDetailModalProps): JSX.Element {
+  const project = useTypeSafeContext(ProjectContext);
+  const { data: ticketResponse } = useFetch<TicketDefenition>(GET_TICKET_BY_ID(project.id, ticketId!));
 
   return (
     <Dialog isOpen={isOpen} onClose={onClose} disableCloseButton>
@@ -60,7 +56,7 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
           <Headline>
             <Title />
 
-            <TicketTitleEditableLabel value={updatingTicket.name} onBlur={handleTitleBlur} />
+            <TicketTitleEditableLabel value={ticketResponse?.name} />
           </Headline>
 
           <Content>
@@ -75,8 +71,8 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
                   <DescriptionFormContainer>
                     <EditableDescription
                       placeholder="Add a more detailed description…"
-                      value={updatingTicket.description}
-                      onChange={handleDescriptionChange}
+                      value={ticketResponse?.description}
+                      readOnly
                     />
 
                     <DescriptionButtons>
@@ -102,7 +98,7 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
                     <Avatar
                       alt="Mr Pug"
                       src="https://ichef.bbci.co.uk/news/976/cpsprodpb/17638/production/_124800859_gettyimages-817514614.jpg"
-                      size={AvatarSize.S}
+                      size="S"
                     />
 
                     <EditableTicket placeholder="Write a comment..." />
@@ -120,9 +116,7 @@ export default function UpdateTicketModal({ isOpen, ticket, onClose }: UpdateTic
               <Button title="Attachment" icon={<AttachFile />} />
               <Button title="Cover" icon={<Style />} />
               <Button title="Custom Fields" icon={<CropLandscape />} />
-
               <SideComment>Add dropdowns, text fields, dates, add more to your cards.</SideComment>
-
               <Button title="Start free trial" icon={<WorkOutline />} />
 
               <SideTitle>Powers-Ups</SideTitle>

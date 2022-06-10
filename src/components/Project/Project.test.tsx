@@ -1,8 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import { MOCKED_PROJECT } from "./constants";
 
-import { TestRendererWithContext } from "../../utils/testRendererWithContext";
+import { TestRendererWithProjectAndOnTicketClickContext } from "../../utils/testRendererWithContext";
 import Project from "./Project";
+
+jest.mock("../../hooks/useFetch", () => {
+  return {
+    __esModule: true,
+    useFetch: jest.fn(() => {
+      return {
+        data: {
+          name: "",
+          description: "",
+        },
+      };
+    }),
+  };
+});
 
 describe("<Project />", () => {
   test("Given project - it should render all given needed info", () => {
@@ -12,7 +26,7 @@ describe("<Project />", () => {
     const secondColumnTitle = MOCKED_PROJECT.columns[1].name;
     const thirdColumnTitle = MOCKED_PROJECT.columns[2].name;
 
-    render(<Project />, { wrapper: TestRendererWithContext });
+    render(<Project />, { wrapper: TestRendererWithProjectAndOnTicketClickContext });
 
     const allColumnLabels = screen.getAllByLabelText("editable-label");
 
